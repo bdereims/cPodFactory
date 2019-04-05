@@ -1,0 +1,31 @@
+#!/bin/bash
+#bdereims@vmware.com
+
+WHERE=$( ip addr show eth1 | grep inet | head -1 | awk '{print $2}' )
+
+case $WHERE in
+	"172.16.100.50/22")
+		SLACK=YES
+		ROOT_DOMAIN="az-lab.shwrfr.com"
+		ALL_CLUSTER=(dell)
+		;;
+	"172.16.100.20/22")
+		SLACK=NO
+		ROOT_DOMAIN="az-demo.shwrfr.com"
+		ALL_CLUSTER=(intel)
+		;;
+esac
+
+for CLUSTER in ${ALL_CLUSTER[@]}; do
+        RESULT=$( ./extra/check_datastore.sh ${CLUSTER} )
+        if [ "${RESULT}" == "Ok!" ]; then
+                break
+        fi
+done
+
+ENV=$CLUSTER
+if [[ ! ${CLUSTER} ]]; then
+	ENV=${ALL_CLUSTER[0]}
+fi
+
+source env-${ENV}

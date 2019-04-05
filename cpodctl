@@ -1,0 +1,156 @@
+#!/bin/bash
+#bdereims@vmware.com
+
+CPODFACTORY=/root/cPodFactory
+BACKUPDIR=${CPODFACTORY}/backup
+
+show_help() {
+	echo "=== cpodctl help"
+	echo ""
+	echo "addfiler[cpod_name] [owner] : add cpodfiler to cpod"
+	echo "create [cpod_name] [#_esx] [owner] : create cpod with specs"
+	echo "delete [cpod_name] [owner] : delete cpod"
+	echo "list : list all cpods"
+	echo "passwd [owner] : retrieve cPod password from a owner, otherwise for 'admin'"
+	echo "vcsa [cpod_name] [owner] : deploy vcsa in cpod"
+}
+
+list_cpod() {
+	cd ${CPODFACTORY}
+	./list_cpod.sh
+}
+
+password_cpod() {
+	cd ${CPODFACTORY}
+	OWNER=${1}
+	if [ "${1}" == "" ]; then OWNER="admin"; fi
+	./password_cpod.sh ${OWNER}
+}
+
+create_cpod() {
+	cd ${CPODFACTORY}
+	NAME=${1}
+	NBESX=$( expr ${2} )
+	OWNER=${3}
+	if [ $NBESX -gt 0 ] && [ $NBESX -lt 10 ]; then 
+		if [ "${2}" == "" ]; then OWNER="admin"; fi
+		./create_cpod.sh ${NAME} ${NBESX} ${OWNER}
+	else
+		echo "Please specify #ESX between 1 and 9."
+	fi
+}
+
+delete_cpod() {
+	cd ${CPODFACTORY}
+	NAME=${1}
+	OWNER=${2}
+	if [ "${NAME}" != "" ] && [ "${OWNER}" != "" ]; then
+		./delete_cpod.sh ${NAME} ${OWNER}
+	else
+		echo "Please specify cPod name and/or owner."
+	fi
+}
+
+vcsa() {
+	cd ${CPODFACTORY}
+	NAME=${1}
+	OWNER=${2}
+	if [ "${NAME}" != "" ] && [ "${OWNER}" != "" ]; then
+		./extra/deploy_vcsa.sh ${NAME} ${OWNER}
+	else
+		echo "Please specify cPod name and/or owner."
+	fi
+}
+
+addfiler() {
+	cd ${CPODFACTORY}
+	NAME=${1}
+	OWNER=${2}
+	if [ "${NAME}" != "" ] && [ "${OWNER}" != "" ]; then
+		./extra/add_filer.sh ${NAME} ${OWNER}
+	else
+		echo "Please specify cPod name and/or owner."
+	fi
+}
+
+backup() {
+	cd ${CPODFACTORY}
+	cp env.passwd ${BACKUPDIR} 
+	cp env-* ${BACKUPDIR}
+	cp extra/post_slack.sh ${BACKUPDIR} 
+	echo "Backup done in ${BACKUPDIR}."
+}
+
+restore() {
+	echo "Backup file are in ${BACKUPDIR}. Restore by yourself."
+}
+
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+	key="$1"
+
+	case $key in
+		help)
+			show_help 
+			shift # past argument
+			;;
+		list)
+			list_cpod
+			shift # past argument
+			;;
+		backup)
+			backup	
+			shift # past argument
+			;;
+		restore)
+			restore	
+			shift # past argument
+			;;
+		create)
+			shift # past argument
+			create_cpod ${1} ${2} ${3}
+			shift # past value
+			shift # past value
+			shift # past value
+			shift # past value
+			;;
+		delete)
+			shift # past argument
+			delete_cpod ${1} ${2}
+			shift # past value
+			shift # past value
+			shift # past value
+			;;
+		password)
+			shift # past argument
+			password_cpod ${1}
+			shift # past value
+			shift # past value
+			;;
+		vcsa)
+			shift # past argument
+			vcsa ${1} ${2}
+			shift # past value
+			shift # past value
+			shift # past value
+			;;
+		addfiler)
+			shift # past argument
+			addfiler ${1} ${2}
+			shift # past value
+			shift # past value
+			shift # past value
+			;;
+		*)    # unknown option
+			POSITIONAL+=("$1") # save it in an array for later
+			shift # past argument
+			;;
+	esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+if [[ -n $1 ]]; then
+	echo "\"${1}\" is not an argument or command. Use \"help\" in order to list all verbs."
+fi

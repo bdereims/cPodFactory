@@ -1,0 +1,15 @@
+*.passwd
+lock
+extra/post_slack.sh
+install/containers/docker-openvpn/openvpn/easy-rsa/keys/*
+install/containers/docker-openvpn-udp/openvpn/easy-rsa/keys/*
+install/containers/docker-openvpn/openvpn/clients/*
+install/containers/docker-openvpn-udp/openvpn/clients/*
+install/containers/docker-haproxy/haproxy/conf/cpodedge.pem
+ovftool.tgz
+ovftool/*
+options
+govc_env
+licenses.key
+token.php
+backup/*

@@ -1,0 +1,34 @@
+#!/bin/bash
+#bdereims@vmware.com
+
+# this file is not synced in git
+. ./env.passwd
+
+# Transit LS for cPodRouter connectivity
+TRANSIT=172.20
+ASN=65200
+
+DNS="172.16.2.1"
+
+CLUSTER="DELL"
+HEADER="cPod"
+
+NETWORK_DIR=network
+COMPUTE_DIR=compute
+EXTRA_DIR=extra
+
+NSX=10.1.0.156
+NSX_ADMIN="admin"
+NSX_TRANSPORTZONE="TransportZone"
+
+ISO_BANK_SERVER="10.1.0.51"
+ISO_BANK_DIR="/VNXeDatastore/ISO-Bank"
+
+VCENTER=10.1.0.19
+VCENTER_ADMIN="cpod@dell.lab"
+VCENTER_DATACENTER="DELL-LAB"
+VCENTER_CLUSTER="DELL Cluster"
+TEMPLATE_VM="template-cPodRouter"
+TEMPLATE_ESX="template-ESX67U1"
+TEMPLATE_FILER="template-cPodFiler"
+DATASTORE="DELL-VSAN"

@@ -1,0 +1,10 @@
+export GOVC_USERNAME=administrator@vsphere.local
+export GOVC_PASSWORD=
+#export GOVC_URL="https://${GOVC_USERNAME}:${GOVC_PASSWORD}@vcsa.cpod-gv.shwrfr.com/sdk"
+export GOVC_URL=10.1.0.100
+export GOVC_INSECURE=1
+export GOVC_DATACENTER=Showroom
+export GOVC_DATASTORE=DELL-VSAN
+export GOVC_HOST=10.1.0.100
+export GOVC_NETWORK="VM Network"
+export GOVC_RESOURCE_POOL='/Showroom/host/DELL Cluster/Resources'
