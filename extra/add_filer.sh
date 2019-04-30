@@ -35,7 +35,7 @@ exit_gate() {
 }
 
 check_space() {
-	./${EXTRA_DIR}/check_space.sh 2>&1 > /dev/null
+	#./${EXTRA_DIR}/check_space.sh 2>&1 > /dev/null
 	if [ $? != 0 ]; then
 		echo "Error: No more space, can't continue."
 		./${EXTRA_DIR}/post_slack.sh ":thumbsdown: Can't create cPod *${1}*, no more space on Datastore."

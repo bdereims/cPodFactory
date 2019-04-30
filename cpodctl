@@ -11,7 +11,7 @@ show_help() {
 	echo "create [cpod_name] [#_esx] [owner] : create cpod with specs"
 	echo "delete [cpod_name] [owner] : delete cpod"
 	echo "list : list all cpods"
-	echo "passwd [owner] : retrieve cPod password from a owner, otherwise for 'admin'"
+	echo "password [owner] : retrieve cPod password from a owner, otherwise for 'admin'"
 	echo "vcsa [cpod_name] [owner] : deploy vcsa in cpod"
 }
 

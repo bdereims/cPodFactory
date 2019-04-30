@@ -36,7 +36,7 @@ export IP_PSC=${SUBNET}.2
 #export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-5973321.iso
 #export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-7312210.iso
 #export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-7515524.iso
-export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-8024368.iso
+#export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-8024368.iso
 #export OVA_VCSA=${BITS}/VMware-VCSA-all-6.7.0-8217866.iso
 export OVA_VCSA=${BITS}/VMware-VCSA-all-6.7.0-8217866.iso
 export TARGET_VCSA=${SUBNET}.21
@@ -51,7 +51,7 @@ export OVA_NSX=${BITS}/VMware-NSX-Manager-6.4.4-11197766.ova
 export HOSTNAME_VCSA=vcsa
 export NAME_VCSA=VCSA
 export IP_VCSA=${SUBNET}.3
-export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-6.7.0.21000-11726888_OVF10.ova
+export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-6.7.0.30000-13010631_OVF10.ova
 
 export HOSTNAME_VRLI=vrli.${DOMAIN}
 export NAME_VRLI=VRLI

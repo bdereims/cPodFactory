@@ -29,14 +29,10 @@ Write-Host "Create vApp."
 $Vapp = New-VApp -Name cPod-$cPodName -Location ( Get-Cluster -Name $Cluster ) 
 
 Write-Host "Add cPodRouter VM."
-###$CpodRouter = New-VM -Name cPodRouter-$cPodName -VM $templateVM -ResourcePool $Vapp -Datastore $Datastore
 $CpodRouter = New-VM -Name cPod-$cPodName-cpodrouter -VM $templateVM -ResourcePool $Vapp -Datastore $Datastore
 
 Write-Host "Add Disk for /data in cPodRouter."
-$CpodRouter | New-HardDisk -StorageFormat Thin -CapacityKB 800000000 
-
-#$CpodRouterHD = Get-HardDisk -VM $CpodRouter
-#Set-SpbmEntityConfiguration -Configuration (Get-SpbmEntityConfiguration $CpodRouterHD) -StoragePolicy $policy
+$CpodRouter | New-HardDisk -StorageFormat Thin -CapacityGB 1000
 
 Write-Host "Modify cPodRouter vNIC."
 Get-NetworkAdapter -VM $CpodRouter | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
@@ -50,11 +46,14 @@ Write-Host "Add ESX VMs."
 For ($i=1; $i -le $numberESX; $i++) {
 	Write-Host "-> cPod-$cPodName-esx-$i"
 	$ESXVM = New-VM -Name cPod-$cPodName-esx-$i -VM $templateESX -ResourcePool $Vapp -Datastore $Datastore
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 20
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 100
+
+	if ($i -eq 1) {
+		$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 300
+	}
 	
 	Get-NetworkAdapter -VM $ESXVM | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
-
-	#$ESXHD = Get-HardDisk -VM $ESXVM
-	#Set-SpbmEntityConfiguration -Configuration (Get-SpbmEntityConfiguration $ESXHD) -StoragePolicy $policy
 
 	Start-VM -VM cPod-$cPodName-esx-$i -Confirm:$false -RunAsync 
 }
