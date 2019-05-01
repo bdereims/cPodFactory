@@ -13,7 +13,7 @@ MEM=$( govc metric.sample "host/DELL Cluster" mem.usage.average | sed -e "s/,.*$
 #govc metric.sample "host/DELL Cluster" mem.usage.average | sed "s/^.*,//" | cut -f1 -d" " | cut -f1 -d"." )
 MEM=$( expr ${MEM} )
 
-if [ 10000 -gt ${DELLVSAN} ] || [ ${MEM} -lt 80 ]
+if [ 10000 -gt ${DELLVSAN} ] || [ 80 -lt ${MEM} ]
 then
 	echo "No more space!"
 	exit 1

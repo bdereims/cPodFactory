@@ -18,13 +18,15 @@ export GATEWAY=${DNS}
 export NETMASK=255.255.255.0
 export PASSWORD=VMware1!
 export VC_PASSWORD=${PASSWORD}
-export PORTGROUP="VM Network"
+#export PORTGROUP="VM Network"
+export PORTGROUP=${PORTGROUP:="VM Network"}
 #export ADMIN=administrator%40vsphere.local
 export ADMIN=administrator%40${DOMAIN}
 export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/Cluster
 #export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/MANAGEMENT
 #export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/Edge
-export DATASTORE=Datastore
+#export DATASTORE=Datastore
+export DATASTORE=${DATASTORE:="Datastore"}
 export BITS=/data/BITS
 
 export HOSTNAME_VCSA=vcsa.${DOMAIN}
@@ -106,3 +108,8 @@ export HOSTNAME_VIO_K8s=vio-k8s
 export NAME_VIO_K8S=VIO-K8S
 export IP_VIO_K8S=${SUBNET}.13
 export OVA_VIO_K8S=${BITS}/VMware-OpenStack-for-Kubernetes-5.0.0.0-8958925_OVF10.ova
+
+export HOSTNAME_HCI=hci
+export NAME_HCI=HCI
+export OVA_HCI=${BITS}/HCIBench_2.0.ova
+
