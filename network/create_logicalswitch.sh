@@ -9,7 +9,8 @@
 TZ_ID=$( ${NETWORK_DIR}/id_transportzone.sh ${1} )
 [ "${TZ_ID}" == "" ] && echo "${1} doesn't exist!" && exit 1
 
-NEW_LOGICALSWITCH="<virtualWireCreateSpec><name>${2}</name><description>Logical Switch via REST API</description><tenantId></tenantId><controlPlaneMode>HYBRID_MODE</controlPlaneMode><guestVlanAllowed>true</guestVlanAllowed></virtualWireCreateSpec>"
+#NEW_LOGICALSWITCH="<virtualWireCreateSpec><name>${2}</name><description>Logical Switch via REST API</description><tenantId></tenantId><controlPlaneMode>HYBRID_MODE</controlPlaneMode><guestVlanAllowed>true</guestVlanAllowed></virtualWireCreateSpec>"
+NEW_LOGICALSWITCH="<virtualWireCreateSpec><name>${2}</name><description>Logical Switch via REST API</description><tenantId></tenantId><controlPlaneMode>UNICAST_MODE</controlPlaneMode><guestVlanAllowed>true</guestVlanAllowed></virtualWireCreateSpec>"
 
 curl -s -k -u ${NSX_ADMIN}:${NSX_PASSWD} -H "Content-Type:text/xml;charset=UTF-8" -X POST --data "${NEW_LOGICALSWITCH}" https://${NSX}/api/2.0/vdn/scopes/${TZ_ID}/virtualwires 2>&1 > /dev/null
 
