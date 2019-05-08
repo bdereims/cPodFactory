@@ -13,6 +13,7 @@ else
         [ $? -ne 0 ] && echo "error: file or env '${1}' does not exist" && exit 1
 
         CPOD=${1}
+	unset DATASTORE
         . ./${COMPUTE_DIR}/cpod-xxx_env
 fi
 
