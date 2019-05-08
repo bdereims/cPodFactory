@@ -46,9 +46,12 @@ Write-Host "Add ESX VMs."
 For ($i=1; $i -le $numberESX; $i++) {
 	Write-Host "-> cPod-$cPodName-esx-$i"
 	$ESXVM = New-VM -Name cPod-$cPodName-esx-$i -VM $templateESX -ResourcePool $Vapp -Datastore $Datastore
+
+	# Adding Disk for vVSAN
 	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 20
 	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 100
 
+	# Local Datastore for VCSA on ESX-01
 	if ($i -eq 1) {
 		$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 300
 	}

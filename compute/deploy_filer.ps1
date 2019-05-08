@@ -24,7 +24,6 @@ Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 $Vapp = Get-Vapp cPod-$cPodName
 
 Write-Host "Add cPodFiler VM."
-###$CpodFiler = New-VM -Name cPodFiler-$cPodName -VM $templateFILER -ResourcePool $Vapp -Datastore $Datastore
 $CpodFiler = New-VM -Name cPod-$cPodName-cpodfiler -VM $templateFILER -ResourcePool $Vapp -Datastore $Datastore
 
 Write-Host "Add Disk for /data in cPodFiler."
@@ -36,7 +35,10 @@ Start-VM -VM $CpodFiler -Confirm:$false
 
 Write-Host "Launch Update script in the cPod context."
 $CpodFiler = Get-VM -name cPod-$cPodName-cpodfiler 
-Invoke-VMScript -VM $CpodFiler -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $genPASSWD ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 60 
+
+Invoke-VMScript -VM $CpodFiler -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $genPASSWD ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 45 -RunAsync 
+
+Start-Sleep -Seconds 15 
 
 #get-vmhost | foreach {
 #	$hba = $_ | Get-VMHostHba -Type iScsi | Where {$_.Model -eq "iSCSI Software Adapter"}

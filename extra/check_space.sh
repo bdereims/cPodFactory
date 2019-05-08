@@ -1,5 +1,5 @@
 #!/bin/bash
-
+exit 0
 . ./govc_env
 . ./env
 
@@ -9,7 +9,7 @@ DELLVSAN=$( govc datastore.info ${CLUSTER}-VSAN | grep Free | sed -e "s/^.*://" 
 DELLVSAN=$( echo "${DELLVSAN}/1" | bc )
 DELLVSAN=$( expr ${DELLVSAN} )
 
-MEM=$( govc metric.sample "host/DELL Cluster" mem.usage.average | sed -e "s/,.*$//" | cut -f10 -d" " | cut -f1 -d"." )
+MEM=$( govc metric.sample "host/INTEL Cluster" mem.usage.average | sed -e "s/,.*$//" | cut -f10 -d" " | cut -f1 -d"." )
 #govc metric.sample "host/DELL Cluster" mem.usage.average | sed "s/^.*,//" | cut -f1 -d" " | cut -f1 -d"." )
 MEM=$( expr ${MEM} )
 
