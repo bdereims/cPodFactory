@@ -49,6 +49,8 @@ get-vmhost | foreach {
 	Remove-VmHostNtpServer -NtpServer 172.16.2.1 -VMHost $_ -confirm:$false
 	Add-VmHostNtpServer -NtpServer cpodrouter.$Domain -VMHost $_
 	Get-VMHostService $_ | where { $_.Key -eq "ntpd" } | Restart-VMHostService -confirm:$false
+	$_ | Get-VMHostHba -Type iScsi | New-IScsiHbaTarget -Address cpodfiler.$DOMAIN -confirm:$false
+	$_ | Get-VMHostStorage -RescanAllHBA
 }
 
 

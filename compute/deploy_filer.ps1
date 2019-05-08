@@ -40,9 +40,4 @@ Invoke-VMScript -VM $CpodFiler -ScriptText "cd update ; ./update.sh $cPodName $I
 
 Start-Sleep -Seconds 15 
 
-#get-vmhost | foreach {
-#	$hba = $_ | Get-VMHostHba -Type iScsi | Where {$_.Model -eq "iSCSI Software Adapter"}
-#	New-IScsiHbaTarget -IScsiHba $hba -Address "cpodfiler.cpod-"$cPodName.ToLower()"."$rootDomain 
-#}
-
 Disconnect-VIServer -Confirm:$false

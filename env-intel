@@ -20,7 +20,6 @@ EXTRA_DIR=extra
 NSX=10.1.0.152
 NSX_ADMIN="admin"
 NSX_TRANSPORTZONE="TransportZone"
-#EDGE="edge-6"
 
 ISO_BANK_SERVER="10.1.0.51"
 ISO_BANK_DIR="/VNXeDatastore/ISO-Bank"
