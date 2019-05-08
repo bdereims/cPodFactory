@@ -32,9 +32,24 @@ create_cpod() {
 	NAME=${1}
 	NBESX=$( expr ${2} )
 	OWNER=${3}
+
+	if [ "$NAME" == "X" ]; then	
+		while :
+		do
+			NAME=$( ./extra/petname.sh )
+			grep "$NAME" /etc/hosts
+			if [ $? -eq 1 ]; then
+				break
+			fi
+		done
+
+		NAME=$( echo $NAME | tr '[:lower:]' '[:upper:]' )
+	fi
+
 	if [ $NBESX -gt 0 ] && [ $NBESX -lt 5 ]; then 
 		if [ "${2}" == "" ]; then OWNER="admin"; fi
-		./create_cpod.sh ${NAME} ${NBESX} ${OWNER}
+		#./create_cpod.sh ${NAME} ${NBESX} ${OWNER}
+		echo ${NAME} ${NBESX} ${OWNER}
 	else
 		echo "Please specify #ESX between 1 and 4."
 	fi
