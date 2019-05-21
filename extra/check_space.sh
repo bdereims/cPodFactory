@@ -1,7 +1,5 @@
 #!/bin/bash
 
-exit 0
-
 . ./govc_env
 . ./env
 

@@ -36,7 +36,7 @@ GOVC_URL="https://${GOVC_LOGIN}:${GOVC_PWD}@vcsa.${POD_FQDN}"
 main() {
 	echo "Connecting vcsa.${POD_FQDN} ..."
 	
-	for i in {0..3}
+	for i in {0..4}
 	do
 		govc license.add -k=true -u=${GOVC_URL} ${KEYS[i]}
 	done
