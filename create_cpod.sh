@@ -124,7 +124,7 @@ check_space() {
 	./extra/check_space.sh 2>&1 > /dev/null
 	if [ $? != 0 ]; then
 		echo "Error: No more space, can't continue."
-		./extra/post_slack.sh ":thumbsdown: Can't create cPod *${1}*, no more space on Datastore or not enough Memory."
+		./extra/post_slack.sh ":thumbsdown: Can't create cPod *${1}* for *${2}*, no more space on Datastore or not enough Memory."
 		exit_gate 1
 	fi
 }
@@ -145,7 +145,7 @@ check_if_existing() {
 main() {
 	NAME_LOWER=$( echo $1 | tr '[:upper:]' '[:lower:]' )
 
-	check_space $1
+	check_space ${1} ${OWNER}
 
 	echo "=== Starting to deploy a new cPod called '${HEADER}-${1}'."
 	./extra/post_slack.sh "Starting creation of cPod *${1}*"
