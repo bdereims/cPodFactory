@@ -7,7 +7,7 @@ RUN apk update && apk upgrade && \
 
 # Add OpenVPN default config 
 ADD openvpn/. /etc/openvpn/.
-RUN mkdir -p /run/openvpn 
+RUN mkdir -p /run/openvpn
 
 ADD ./startup.sh /opt/startup.sh
 

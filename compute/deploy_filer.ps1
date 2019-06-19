@@ -39,5 +39,6 @@ $CpodFiler = Get-VM -name cPod-$cPodName-cpodfiler
 Invoke-VMScript -VM $CpodFiler -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $genPASSWD ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 45 -RunAsync 
 
 Start-Sleep -Seconds 15 
+Restart-VM -VM $CpodFiler -Confirm:$false -RunAsync
 
 Disconnect-VIServer -Confirm:$false
