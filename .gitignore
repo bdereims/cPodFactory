@@ -13,3 +13,8 @@ govc_env
 licenses.key
 token.php
 backup/*
+*.pem
+*.key
+*.csr
+*.cer
+install/nginx-reverseproxy/ssl/shwrfr.com/shwrfr.com.conf
