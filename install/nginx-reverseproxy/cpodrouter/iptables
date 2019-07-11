@@ -71,7 +71,7 @@ iptables -t nat -X
 iptables -t mangle -F
 iptables -t mangle -X
 
-iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE
+iptables -t nat -A POSTROUTING -j MASQUERADE
 
 # Drop any access to iSCSI
 iptables -A FORWARD -i eth1 -o eth0 -p tcp --dport 3260 -j DROP
