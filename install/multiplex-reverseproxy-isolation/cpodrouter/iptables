@@ -79,7 +79,13 @@ iptables -A FORWARD -i eth1 -o eth0 -p tcp --dport 3260 -j DROP
 # Open 443 only on internet
 iptables -I INPUT 1 -i eth2 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p tcp -i eth2 --dport 443 -j ACCEPT
-iptables -A INPUT -i eth2 -j DROP
+iptables -A INPUT -i eth2 -j DROP 
+
+# RDP redirection to RIFT jumpbox - no need with HAProxy/NGINX reverse proxy
+#iptables -I INPUT 2 -p tcp -i eth2 --dport 3389 -j ACCEPT
+#iptables -I INPUT 2 -p tcp -i eth2 --dport 80 -j ACCEPT
+#iptables -t nat -A PREROUTING -p tcp --dport 3389 -j DNAT --to-destination 172.19.8.205:3389
+#iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.19.8.205:3389
 
 #restore ipv4 rules
 #iptables-restore < /etc/systemd/scripts/ip4save
