@@ -6,12 +6,10 @@ WHERE=$( ip addr show eth1 | grep inet | head -1 | awk '{print $2}' )
 case $WHERE in
 	"172.16.100.50/22")
 		SLACK=YES
-		ROOT_DOMAIN="az-lab.shwrfr.com"
 		ALL_CLUSTER=(dell)
 		;;
 	"172.16.100.20/22")
 		SLACK=NO
-		ROOT_DOMAIN="az-demo.shwrfr.com"
 		ALL_CLUSTER=(intel)
 		;;
 esac

@@ -113,3 +113,6 @@ export HOSTNAME_HCI=hci
 export NAME_HCI=HCI
 export OVA_HCI=${BITS}/HCIBench_2.0.ova
 
+export HOSTNAME_RIFT=rift
+export NAME_RIFT=RIFT
+export OVA_RIFT=${BITS}/template-RIFT.ova

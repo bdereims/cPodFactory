@@ -4,11 +4,14 @@
 # this file is not synced in git
 . ./env.passwd
 
+ROOT_DOMAIN="az-lab.shwrfr.com"
+
 # Transit LS for cPodRouter connectivity
 TRANSIT=172.20
 ASN=65200
 
-DNS="172.16.2.1"
+TRANSIT_NET="172.16.2"
+DNS="${TRANSIT_NET}.1"
 
 CLUSTER="DELL"
 HEADER="cPod"

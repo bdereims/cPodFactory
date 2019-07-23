@@ -25,8 +25,9 @@ DNSMASQ=/etc/dnsmasq.conf
 HOSTS=/etc/hosts
 
 network_env() {
-	FIRST_LINE=$( grep ${ROOT_DOMAIN} ${DNSMASQ} | grep "cpod-" | awk -F "/" '{print $3}' | sort -n -t "." -k 7 | head -1 )
-	LAST_LINE=$( grep ${ROOT_DOMAIN} ${DNSMASQ} | grep "cpod-" | awk -F "/" '{print $3}' | sort -n -t "." -k 7 | tail -1 )
+	FIRST_LINE=$( grep ${ROOT_DOMAIN} ${DNSMASQ} | grep "${TRANSIT_NET}\." | grep "cpod-" | awk -F "/" '{print $3}' | sort -n -t "." -k 7 | head -1 )
+	echo ${FIRST_LINE}
+	LAST_LINE=$( grep ${ROOT_DOMAIN} ${DNSMASQ} | grep "${TRANSIT_NET}\." | grep "cpod-" | awk -F "/" '{print $3}' | sort -n -t "." -k 7 | tail -1 )
 
 	TRANSIT_SUBNET=$( echo ${FIRST_LINE} | sed 's!^.*/!!' | sed 's/\.[0-9]*$//' )
 

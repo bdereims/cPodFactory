@@ -13,6 +13,7 @@ show_help() {
 	echo "list : list all cpods"
 	echo "password [owner] : retrieve cPod password from a owner, otherwise for 'admin'"
 	echo "vcsa [cpod_name] [owner] : deploy vcsa in cpod"
+	echo "expose [cpod_name] : expose cpod on Internet as a Public cPod, FWing any connectivity from cPod to Lab"
 }
 
 list_cpod() {
@@ -99,6 +100,12 @@ restore() {
 	echo "Backup file are in ${BACKUPDIR}. Restore by yourself."
 }
 
+expose() {
+	cd ${CPODFACTORY}
+	NAME=${1}
+	./expose_cpod.sh ${NAME}	
+}
+
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -154,6 +161,12 @@ do
 			shift # past argument
 			addfiler ${1} ${2}
 			shift # past value
+			shift # past value
+			shift # past value
+			;;
+		expose)
+			shift # part argument
+			expose ${1}
 			shift # past value
 			shift # past value
 			;;
