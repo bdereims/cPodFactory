@@ -3,7 +3,8 @@
 . ./govc_env
 . ./env
 
-if [ ${FORCE} == 1 ]; then
+if [ "${FORCE}" == "1" ]; then
+	echo "Ok!"
 	exit 0
 fi
 

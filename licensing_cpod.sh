@@ -1,6 +1,10 @@
 #!/bin/bash
 #jacobssimon@vmware.com
 
+# ELM
+# export PSC_DOMAIN
+# export PSC_PASSWORD
+
 . ./env
 . ./licenses.key
 
@@ -26,10 +30,21 @@ NAME="$( echo ${1} | tr '[:lower:]' '[:upper:]' )"
 POD_NAME="cPod-${1}"
 POD_NAME_LOWER="$( echo ${POD_NAME} | tr '[:upper:]' '[:lower:]' )"
 POD_FQDN="${POD_NAME_LOWER}.${ROOT_DOMAIN}"
-#POD_FQDN="${POD_NAME_LOWER}.az-demo.shwrfr.com"
-GOVC_LOGIN="administrator@${POD_FQDN}"
-GOVC_PWD="$( ./extra/passwd_for_cpod.sh ${1} )"
-GOVC_URL="https://${GOVC_LOGIN}:${GOVC_PWD}@vcsa.${POD_FQDN}"
+
+if [ -z ${PSC_DOMAIN} ]; then
+	GOVC_LOGIN="administrator@${POD_FQDN}"
+else
+	GOVC_LOGIN="administrator@${PSC_DOMAIN}"
+fi
+
+if [ -z ${PSC_DOMAIN} ]; then
+	GOVC_PWD="$( ./extra/passwd_for_cpod.sh ${1} )"
+else
+	GOVC_PWD="${PSC_PASSWORD}"
+	VCENTER_CPOD_PASSWD=${PSC_PASSWORD}
+fi
+
+export GOVC_URL="https://${GOVC_LOGIN}:${GOVC_PWD}@vcsa.${POD_FQDN}"
 
 #======================================
 
@@ -38,19 +53,19 @@ main() {
 	
 	for i in {0..4}
 	do
-		govc license.add -k=true -u=${GOVC_URL} ${KEYS[i]}
+		govc license.add -k=true ${KEYS[i]}
 	done
-	govc license.assign -k=true -u=${GOVC_URL} ${KEYS[0]}
+	govc license.assign -k=true ${KEYS[0]}
 	
-	NUM_ESX="$(govc datacenter.info -k=true -u=${GOVC_URL} /"${POD_NAME}" | grep "Hosts" | cut -d : -f 2 | cut -d " " -f 14)"
+	NUM_ESX=$(govc datacenter.info -k=true "${POD_NAME}" | grep "Hosts" | cut -d : -f 2 | cut -d " " -f 14)
 	
 	for (( i=1; i<=$NUM_ESX; i++ ))
 	do
 		HOST="esx-0${i}.${POD_FQDN}"
-		govc license.assign -k=true -u=${GOVC_URL} -host ${HOST,,} ${KEYS[1]}
+		govc license.assign -k=true -host ${HOST,,} ${KEYS[1]}
 	done
 	
-	govc license.ls -k=true -u=${GOVC_URL}
+	govc license.ls -k=true
 }
 
 main

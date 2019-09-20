@@ -33,6 +33,7 @@ create_cpod() {
 	NAME=${1}
 	NBESX=$( expr ${2} )
 	OWNER=${3}
+	NAME=$( echo $NAME | tr '[:lower:]' '[:upper:]' )
 
 	if [ "$NAME" == "X" ]; then	
 		while :
@@ -47,7 +48,7 @@ create_cpod() {
 		NAME=$( echo $NAME | tr '[:lower:]' '[:upper:]' )
 	fi
 
-	if [ $NBESX -gt 0 ] && [ $NBESX -lt 5 ]; then 
+	if [ $NBESX -gt 0 ] && [ $NBESX -lt 5 ] || [ "${FORCE}" == "1" ]; then 
 		if [ "${2}" == "" ]; then OWNER="admin"; fi
 		./create_cpod.sh ${NAME} ${NBESX} ${OWNER}
 	else
