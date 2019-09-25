@@ -69,7 +69,7 @@ delete_cpod() {
 
 vcsa() {
 	cd ${CPODFACTORY}
-	NAME=${1}
+	NAME=$( echo ${1} | tr '[:lower:]' '[:upper:]' )
 	OWNER=${2}
 	if [ "${NAME}" != "" ] && [ "${OWNER}" != "" ]; then
 		./extra/deploy_vcsa.sh ${NAME} ${OWNER}
