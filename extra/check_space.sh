@@ -17,7 +17,7 @@ VSAN=$( expr ${VSAN} )
 MEM=$( govc metric.sample "host/${CLUSTER} Cluster" mem.usage.average | sed -e "s/,.*$//" | cut -f10 -d" " | cut -f1 -d"." )
 MEM=$( expr ${MEM} )
 
-if [ 10000 -gt ${VSAN} ] || [ 75 -lt ${MEM} ]
+if [ 10000 -gt ${VSAN} ] || [ 80 -lt ${MEM} ]
 then
 	echo "No more space!"
 	exit 1

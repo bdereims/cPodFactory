@@ -71,7 +71,7 @@ export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-49fd219.ova
 
 export HOSTNAME_FORTYTWO=forty-two
 export NAME_FORTYTWO=FORTY-TWO
-export OVA_FORTYTWO=${BITS}/forty-two_2018-12-6.ova
+export OVA_FORTYTWO=${BITS}/forty-two-20191007.ova
 
 export HOSTNAME_UBUNTU=ubuntu
 export NAME_UBUNTU=Ubuntu

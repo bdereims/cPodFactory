@@ -170,6 +170,7 @@ main() {
 	TIME=$( expr ${END} - ${START} )
 	echo "In ${TIME} Seconds."
 	./extra/post_slack.sh ":thumbsup: cPod *${1}* has been successfully created in *${TIME}s*"
+	./cpod_lease.sh create ${1} ${OWNER}
 
 	exit_gate 0
 }

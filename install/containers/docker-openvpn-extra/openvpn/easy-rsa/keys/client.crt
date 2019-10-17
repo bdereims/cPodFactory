@@ -1,0 +1,96 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 2 (0x2)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=FR, ST=IDF, L=Paris, O=Tech, OU=SHWRFR, CN=Tech CA/name=EasyRSA/emailAddress=shwrfr@gmail.com
+        Validity
+            Not Before: Jan 16 13:31:40 2019 GMT
+            Not After : Jan 13 13:31:40 2029 GMT
+        Subject: C=FR, ST=IDF, L=Paris, O=Tech, OU=SHWRFR, CN=client/name=EasyRSA/emailAddress=shwrfr@gmail.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:e8:78:5e:4a:40:24:e6:df:56:73:28:27:c2:61:
+                    b3:d7:7a:b5:97:59:3f:00:8c:3d:60:47:ac:a0:ca:
+                    be:23:8a:49:66:7d:83:a5:78:6a:31:54:db:27:19:
+                    a5:06:02:d2:ac:18:41:47:ba:c4:84:d4:60:76:59:
+                    a5:cc:fd:fa:5f:5d:78:9d:7b:a0:4a:92:fe:c0:2f:
+                    6b:15:85:d6:9c:c5:89:82:01:0b:3f:57:e9:7b:25:
+                    68:bc:71:39:e0:d4:ae:44:25:de:11:c7:47:ff:eb:
+                    22:5e:e3:20:c4:d9:0e:c0:fa:23:3c:98:5f:22:11:
+                    56:43:4f:30:ed:52:4c:5e:3c:b3:9e:c9:a2:33:6e:
+                    68:20:c3:fa:17:2b:1e:2e:b8:33:b7:07:48:15:21:
+                    7a:46:2a:0e:31:d0:3a:b9:70:49:91:67:7d:f6:06:
+                    be:7f:0f:65:11:68:4d:01:e1:c8:82:aa:3e:bd:07:
+                    33:25:28:20:4c:8e:22:e9:d2:16:92:9f:cb:b2:cb:
+                    bf:ab:04:d3:76:8c:3b:33:a9:cc:31:8b:0a:19:d2:
+                    d8:0b:83:c4:0e:96:e0:f2:96:d5:a1:da:03:70:54:
+                    d4:a0:da:aa:bc:28:e6:f6:ae:65:3b:ab:8c:a3:f8:
+                    be:dc:3c:a0:3a:02:4d:12:8b:82:f2:ec:f9:18:55:
+                    21:49
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                B6:3A:ED:D3:37:EE:12:F1:05:68:EE:C9:A8:69:EC:76:D3:8E:44:BD
+            X509v3 Authority Key Identifier: 
+                keyid:5D:A5:48:95:EA:B7:21:D1:3F:16:DC:D2:6C:43:31:CB:68:4D:C7:13
+                DirName:/C=FR/ST=IDF/L=Paris/O=Tech/OU=SHWRFR/CN=Tech CA/name=EasyRSA/emailAddress=shwrfr@gmail.com
+                serial:FF:31:FA:5E:51:35:93:B5
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+            X509v3 Subject Alternative Name: 
+                DNS:client
+    Signature Algorithm: sha256WithRSAEncryption
+         73:80:03:71:19:a0:e9:02:91:8b:d4:a3:6c:8a:a0:89:81:a4:
+         11:b3:cb:fc:8e:63:d5:bd:1b:39:a9:16:75:fd:ef:56:92:29:
+         fc:b8:a9:41:d7:56:cf:23:78:f6:97:cb:41:66:d2:dd:a1:ad:
+         3f:84:69:9f:89:31:ff:51:84:93:a3:78:16:d6:38:41:c1:b4:
+         e3:b1:93:3d:00:80:ad:bb:c3:aa:14:cc:e3:87:35:7b:ce:23:
+         b6:2d:ff:75:45:8b:27:0a:a8:3e:50:1a:07:80:8d:c3:88:4e:
+         0b:86:36:7b:67:a8:d5:55:ee:fb:1a:6f:11:b5:67:6a:7a:62:
+         95:0f:24:03:2a:87:88:40:74:b8:f7:ef:d5:8d:c0:8b:41:26:
+         08:5d:66:e5:8d:8d:35:b1:e3:cd:68:1f:51:4c:86:cb:aa:30:
+         6b:fb:20:e5:19:e3:a3:00:1f:4b:b8:fc:6e:ef:77:b8:dd:da:
+         3d:60:fe:13:39:c1:68:30:be:f1:ca:27:81:e9:85:62:af:94:
+         63:10:47:bd:5b:e8:c9:1b:64:b5:37:1b:0b:ad:88:66:e2:16:
+         19:1a:82:a5:e9:a6:cc:c8:8b:20:df:7c:25:9d:6b:3c:a2:d4:
+         97:da:85:5e:b6:46:9a:75:1b:9b:96:6d:f3:8e:17:73:bc:b7:
+         91:e4:30:31
+-----BEGIN CERTIFICATE-----
+MIIE+DCCA+CgAwIBAgIBAjANBgkqhkiG9w0BAQsFADCBkDELMAkGA1UEBhMCRlIx
+DDAKBgNVBAgTA0lERjEOMAwGA1UEBxMFUGFyaXMxDTALBgNVBAoTBFRlY2gxDzAN
+BgNVBAsTBlNIV1JGUjEQMA4GA1UEAxMHVGVjaCBDQTEQMA4GA1UEKRMHRWFzeVJT
+QTEfMB0GCSqGSIb3DQEJARYQc2h3cmZyQGdtYWlsLmNvbTAeFw0xOTAxMTYxMzMx
+NDBaFw0yOTAxMTMxMzMxNDBaMIGPMQswCQYDVQQGEwJGUjEMMAoGA1UECBMDSURG
+MQ4wDAYDVQQHEwVQYXJpczENMAsGA1UEChMEVGVjaDEPMA0GA1UECxMGU0hXUkZS
+MQ8wDQYDVQQDEwZjbGllbnQxEDAOBgNVBCkTB0Vhc3lSU0ExHzAdBgkqhkiG9w0B
+CQEWEHNod3JmckBnbWFpbC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+AoIBAQDoeF5KQCTm31ZzKCfCYbPXerWXWT8AjD1gR6ygyr4jiklmfYOleGoxVNsn
+GaUGAtKsGEFHusSE1GB2WaXM/fpfXXide6BKkv7AL2sVhdacxYmCAQs/V+l7JWi8
+cTng1K5EJd4Rx0f/6yJe4yDE2Q7A+iM8mF8iEVZDTzDtUkxePLOeyaIzbmggw/oX
+Kx4uuDO3B0gVIXpGKg4x0Dq5cEmRZ332Br5/D2URaE0B4ciCqj69BzMlKCBMjiLp
+0haSn8uyy7+rBNN2jDszqcwxiwoZ0tgLg8QOluDyltWh2gNwVNSg2qq8KOb2rmU7
+q4yj+L7cPKA6Ak0Si4Ly7PkYVSFJAgMBAAGjggFaMIIBVjAJBgNVHRMEAjAAMC0G
+CWCGSAGG+EIBDQQgFh5FYXN5LVJTQSBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYD
+VR0OBBYEFLY67dM37hLxBWjuyahp7HbTjkS9MIHFBgNVHSMEgb0wgbqAFF2lSJXq
+tyHRPxbc0mxDMctoTccToYGWpIGTMIGQMQswCQYDVQQGEwJGUjEMMAoGA1UECBMD
+SURGMQ4wDAYDVQQHEwVQYXJpczENMAsGA1UEChMEVGVjaDEPMA0GA1UECxMGU0hX
+UkZSMRAwDgYDVQQDEwdUZWNoIENBMRAwDgYDVQQpEwdFYXN5UlNBMR8wHQYJKoZI
+hvcNAQkBFhBzaHdyZnJAZ21haWwuY29tggkA/zH6XlE1k7UwEwYDVR0lBAwwCgYI
+KwYBBQUHAwIwCwYDVR0PBAQDAgeAMBEGA1UdEQQKMAiCBmNsaWVudDANBgkqhkiG
+9w0BAQsFAAOCAQEAc4ADcRmg6QKRi9SjbIqgiYGkEbPL/I5j1b0bOakWdf3vVpIp
+/LipQddWzyN49pfLQWbS3aGtP4Rpn4kx/1GEk6N4FtY4QcG047GTPQCArbvDqhTM
+44c1e84jti3/dUWLJwqoPlAaB4CNw4hOC4Y2e2eo1VXu+xpvEbVnanpilQ8kAyqH
+iEB0uPfv1Y3Ai0EmCF1m5Y2NNbHjzWgfUUyGy6owa/sg5RnjowAfS7j8bu93uN3a
+PWD+EznBaDC+8congemFYq+UYxBHvVvoyRtktTcbC62IZuIWGRqCpemmzMiLIN98
+JZ1rPKLUl9qFXrZGmnUbm5Zt844Xc7y3keQwMQ==
+-----END CERTIFICATE-----

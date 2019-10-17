@@ -1,0 +1,2 @@
+V	290113133124Z		01	unknown	/C=FR/ST=IDF/L=Paris/O=Tech/OU=SHWRFR/CN=cpodedge/name=EasyRSA/emailAddress=shwrfr@gmail.com
+V	290113133140Z		02	unknown	/C=FR/ST=IDF/L=Paris/O=Tech/OU=SHWRFR/CN=client/name=EasyRSA/emailAddress=shwrfr@gmail.com
