@@ -1,2 +1,4 @@
 21 cpod-OPST hedimo stop
 22 cpod-OPST hedimo delete
+29 cpod-DEMOAPPDEFENSE gzekri stop
+30 cpod-DEMOAPPDEFENSE gzekri delete

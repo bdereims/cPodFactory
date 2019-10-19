@@ -17,5 +17,6 @@ backup/*
 *.key
 *.csr
 *.cer
+*.crt
 install/nginx-reverseproxy/ssl/shwrfr.com/shwrfr.com.conf
 public-ip

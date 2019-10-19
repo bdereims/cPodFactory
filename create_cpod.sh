@@ -149,7 +149,7 @@ main() {
 	check_space ${1} ${OWNER}
 
 	echo "=== Starting to deploy a new cPod called '${HEADER}-${1}'."
-	./extra/post_slack.sh "Starting creation of cPod *${1}*"
+	./extra/post_slack.sh "Starting creation of cPod *${1}* for *{OWNER}*"
 	START=$( date +%s ) 
 	
 	mutex
