@@ -165,12 +165,13 @@ main() {
 	echo "prep with ${1} ${NUM_ESX}"
 	prep_cpod ${1} ${NUM_ESX}
 
+	./cpod_lease.sh create ${1} ${OWNER}
+
 	echo "=== Creation is finished."
 	END=$( date +%s )
 	TIME=$( expr ${END} - ${START} )
 	echo "In ${TIME} Seconds."
 	./extra/post_slack.sh ":thumbsup: cPod *${1}* has been successfully created in *${TIME}s*"
-	./cpod_lease.sh create ${1} ${OWNER}
 
 	exit_gate 0
 }

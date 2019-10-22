@@ -4,6 +4,9 @@
 # this file is not synced in git
 . ./env.passwd
 
+SLACK=YES
+LEASE=YES
+
 ROOT_DOMAIN="az-lab.shwrfr.com"
 
 # Transit LS for cPodRouter connectivity
