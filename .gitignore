@@ -20,3 +20,4 @@ backup/*
 *.crt
 install/nginx-reverseproxy/ssl/shwrfr.com/shwrfr.com.conf
 public-ip
+extra/leases/*

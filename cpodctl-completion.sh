@@ -12,6 +12,7 @@ _cpodctl_completions()
   COMPREPLY+=("backup")
   COMPREPLY+=("restore")
   COMPREPLY+=("help")
+  COMPREPLY+=("lease")
 }
 
 complete -F _cpodctl_completions cpodctl 

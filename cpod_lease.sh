@@ -20,13 +20,18 @@ create(){
 
 delete(){
 	jobid=$( grep "cpod-${1} ${2} stop" "extra/leases/leases.txt" | cut -d' ' -f 1 )
-	atrm ${jobid}
-	sed -i "/cpod-${1} ${2} stop/d" "extra/leases/leases.txt"
-	rm "extra/leases/temp_stop_vapp_cpod-${1}.sh"
-	jobid=$( grep "cpod-${1} ${2} delete" "extra/leases/leases.txt"| cut -d' ' -f 1 )
-	atrm ${jobid}
-	sed -i "/cpod-${1} ${2} delete/d" "extra/leases/leases.txt"
-	rm "extra/leases/temp_delete_cpod-${1}.sh"
+	atrm ${jobid} 2>/dev/null
+	if [ $? -eq 0 ]
+	then
+		sed -i "/cpod-${1} ${2} stop/d" "extra/leases/leases.txt"
+		rm "extra/leases/temp_stop_vapp_cpod-${1}.sh"
+		jobid=$( grep "cpod-${1} ${2} delete" "extra/leases/leases.txt"| cut -d' ' -f 1 )
+		atrm ${jobid}
+		sed -i "/cpod-${1} ${2} delete/d" "extra/leases/leases.txt"
+		rm "extra/leases/temp_delete_cpod-${1}.sh"
+	else
+		echo "cPod ${1} either doesn't exist or doesn't have a lease applied to it"
+	fi
 }
 
 renew(){

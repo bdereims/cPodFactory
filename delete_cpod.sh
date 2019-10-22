@@ -91,6 +91,8 @@ main() {
 	sleep 5
 	network_delete ${NSX_TRANSPORTZONE} ${CPOD_NAME_LOWER}
 
+	./cpod_lease.sh delete ${1} ${OWNER}
+	
 	echo "=== Deletion is finished."
 	./extra/post_slack.sh ":thumbsup: cPod *${NAME_HIGH}* has been deleted"
 	exit_gate 0

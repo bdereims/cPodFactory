@@ -38,7 +38,7 @@ network_env() {
 
 	while [ ${TRANSIT_IP} -le ${LAST_IP} ]
 	do
-        	if [[ ! $( grep "${TRANSIT_SUBNET}.${TRANSIT_IP}" ${DNSMASQ} ) ]]; then
+        	if [[ ! $( grep -E "server=/.*${ROOT_DOMAIN}/${TRANSIT_NET}.*${TRANSIT_IP}$" ${DNSMASQ} ) ]]; then
                 	break
         	fi
 
@@ -149,7 +149,7 @@ main() {
 	check_space ${1} ${OWNER}
 
 	echo "=== Starting to deploy a new cPod called '${HEADER}-${1}'."
-	./extra/post_slack.sh "Starting creation of cPod *${1}* for *{OWNER}*"
+	./extra/post_slack.sh "Starting creation of cPod *${1}* for *${OWNER}*"
 	START=$( date +%s ) 
 	
 	mutex

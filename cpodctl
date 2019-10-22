@@ -14,6 +14,7 @@ show_help() {
 	echo "password [owner] : retrieve cPod password from a owner, otherwise for 'admin'"
 	echo "vcsa [cpod_name] [owner] : deploy vcsa in cpod"
 	echo "expose [cpod_name] : expose cpod on Internet as a Public cPod, FWing any connectivity from cPod to Lab"
+	echo "lease [action] (i.e create, delete or debug) [cpod_name] [owner] : create a 15d lease on a cpod"
 }
 
 list_cpod() {
@@ -107,6 +108,14 @@ expose() {
 	./expose_cpod.sh ${NAME}	
 }
 
+lease() {
+	cd ${CPODFACTORY}
+	ACTION=${1}
+	NAME=${2}
+	OWNER=${3}
+	./cpod_lease.sh ${ACTION} ${NAME} ${OWNER}
+}
+
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -170,6 +179,14 @@ do
 			expose ${1}
 			shift # past value
 			shift # past value
+			;;
+		lease)
+			shift
+			lease ${1} ${2} ${3}
+			shift
+			shift
+			shift
+			shift
 			;;
 		*)    # unknown option
 			POSITIONAL+=("$1") # save it in an array for later

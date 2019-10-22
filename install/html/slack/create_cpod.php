@@ -18,13 +18,14 @@ if ($text != '') {
 		$msg = ":thumbsdown: Name should not contains ".$CPOD[0].".";
 		die($msg);
 	}
-	$STATUS = exec("./check_cpod.sh ".$CPOD[0]);
+	/*$STATUS = exec("./check_cpod.sh ".$CPOD[0]);*/
+	$STATUS="Ok!";
 	if ($STATUS == "Ok!" ) {
 		if ($CPOD[1] == '') {
 			$CPOD[1] = 3;
 		}
-		if ($CPOD[1] > 5) {
-			$msg = ":thumbsdown: You are not allowed to deploy more than 5 ESXi.";
+		if ($CPOD[1] > 4) {
+			$msg = ":thumbsdown: You are not allowed to deploy more than 4 ESXi.";
 			die($msg);
 		}
 		exec("nohup ./create_cpod.sh ".strtoupper($CPOD[0])." ".$CPOD[1]." ".$user_name." > nohup.out & > /dev/null");
