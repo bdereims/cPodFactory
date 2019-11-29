@@ -1,6 +1,9 @@
 #!/bin/bash
 #bdereims@vmware.com
 
+#export AUTH_DOMAIN="vsphere.local"
+export AUTH_DOMAIN=${DOMAIN}
+
 . ./env
 
 [ "${1}" == "" ] && echo "usage: ${0} <cPod Name> <owner email>" && exit 1
@@ -62,7 +65,7 @@ cd /root/cPodFactory/ovftool
 --diskMode=thin --net:"Network 1"="VM Network" --prop:guestinfo.cis.appliance.net.prefix=24 \
 --prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
 --prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
---prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${DOMAIN} \
+--prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
 --prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
 --prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
 --prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
@@ -78,7 +81,7 @@ while [ "${STATUS}" != "SUCCEEDED" ]
 do
 	sleep 5
 	echo "Installing..."
-	STATUS=$( curl -s -k -u administrator@${DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
+	STATUS=$( curl -s -k -u administrator@vsphere.local:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
 	
 	if [ "${STATUS}" == "RUNNING" ] && [ ${ONCE} -eq 0 ]; then
 		ONCE=1

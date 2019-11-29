@@ -27,6 +27,9 @@ OVA=${OVA_FORTYTWO}
 
 ###################
 
+ADMIN="administrator@vsphere.local"
+PORTGROUP="DPortGroup"
+
 PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
 
 export MYSCRIPT=/tmp/$$
