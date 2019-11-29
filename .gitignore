@@ -21,4 +21,9 @@ backup/*
 install/nginx-reverseproxy/ssl/shwrfr.com/shwrfr.com.conf
 public-ip
 extra/leases/*
+<<<<<<< HEAD
 ipsec.secrets*
+=======
+install/containers/docker-strongswan/config/ipsec.d/*
+install/containers/docker-strongswan/config/ipsec.secrets
+>>>>>>> 2fba148241cc58e5605af8f0d73a56b82edca4f4
