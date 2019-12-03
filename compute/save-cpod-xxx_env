@@ -53,8 +53,8 @@ export OVA_NSX=${BITS}/VMware-NSX-Manager-6.4.4-11197766.ova
 export HOSTNAME_VCSA=vcsa
 export NAME_VCSA=VCSA
 export IP_VCSA=${SUBNET}.3
-export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova
-#export OVA_VCSA=${BITS}/vcsa-70.ova
+#export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova
+export OVA_VCSA=${BITS}/vcsa-70.ova
 
 export HOSTNAME_VRLI=vrli.${DOMAIN}
 export NAME_VRLI=VRLI
