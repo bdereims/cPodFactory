@@ -9,6 +9,7 @@ GEN_PASSWORD="###GEN_PASSWD###"
 ISO_BANK_SERVER="###ISO_BANK_SERVER###"
 ISO_BANK_DIR="###ISO_BANK_DIR###"
 NUM_ESX="###NUM_ESX###"
+DOMAIN=$( grep "domain=" /etc/dnsmasq.conf | sed "s/domain=//" )
 
 [ "$( hostname )" == "mgmt-cpodrouter" ] && exit 1
 [ -f already_prep ] && exit 0
@@ -38,20 +39,21 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 	NAME=$( printf "esx-%02d" ${I} )
 	printf "${NEWIP}\t${NAME}\n" >> ${HOSTS}
 	I=$( expr ${I} - 1 )
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system hostname set --host=${NAME}"
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "vim-cmd hostsvc/vmotion/vnic_set vmk0"
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system settings advanced set -o /Mem/ShareForceSalting -i 0"
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${CPODROUTER} --share=/data/Datastore --volume-name=Datastore"
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=ISO-Bank -r"
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "printf \"${GEN_PASSWORD}\n${GEN_PASSWORD}\n\" | passwd root"
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "sed -i \"s/nameserver.*$/nameserver /g\" /etc/resolv.conf"
-	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0"
+	echo "Configuring ${NAME}..."
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system hostname set --host=${NAME}" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "vim-cmd hostsvc/vmotion/vnic_set vmk0" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system settings advanced set -o /Mem/ShareForceSalting -i 0" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${CPODROUTER} --share=/data/Datastore --volume-name=Datastore" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=ISO-Bank -r" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"nameserver ${CPODROUTER}\" > /etc/resolv.conf ; echo \"search ${DOMAIN}\" >> /etc/resolv.conf" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "printf \"${GEN_PASSWORD}\n${GEN_PASSWORD}\n\" | passwd root 2>&1 > /dev/null" 2>&1 > /dev/null
+	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0" 2>&1 > /dev/null
 done
 
 printf "${BASEIP}3\tvcsa\n" >> ${HOSTS}
-printf "${BASEIP}4\tnsx\n" >> ${HOSTS}
-printf "#${BASEIP}5-7\tnsx controllers\n" >> ${HOSTS}
-printf "${BASEIP}8\tedge\n" >> ${HOSTS}
+#printf "${BASEIP}4\tnsx\n" >> ${HOSTS}
+#printf "#${BASEIP}5-7\tnsx controllers\n" >> ${HOSTS}
+#printf "${BASEIP}8\tedge\n" >> ${HOSTS}
 
 touch /data/Datastore/exclude.tag
 

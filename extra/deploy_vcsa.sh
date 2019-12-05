@@ -1,9 +1,6 @@
 #!/bin/bash
 #bdereims@vmware.com
 
-#export AUTH_DOMAIN="vsphere.local"
-export AUTH_DOMAIN=${DOMAIN}
-
 . ./env
 
 [ "${1}" == "" ] && echo "usage: ${0} <cPod Name> <owner email>" && exit 1
@@ -26,6 +23,9 @@ HOSTNAME=${HOSTNAME_VCSA}
 NAME=${NAME_VCSA}
 IP=${IP_VCSA}
 OVA=${OVA_VCSA}
+
+#AUTH_DOMAIN="vsphere.local"
+AUTH_DOMAIN=${DOMAIN}
 
 ###################
 
@@ -81,7 +81,9 @@ while [ "${STATUS}" != "SUCCEEDED" ]
 do
 	sleep 5
 	echo "Installing..."
-	STATUS=$( curl -s -k -u administrator@vsphere.local:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
+	#STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
+	STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment )
+	echo ${STATUS} | grep ".status" && STATUS=$( echo ${STATUS} | jq '.status' | sed 's/"//g' )	
 	
 	if [ "${STATUS}" == "RUNNING" ] && [ ${ONCE} -eq 0 ]; then
 		ONCE=1

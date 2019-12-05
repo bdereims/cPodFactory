@@ -26,7 +26,6 @@ HOSTS=/etc/hosts
 
 network_env() {
 	FIRST_LINE=$( grep ${ROOT_DOMAIN} ${DNSMASQ} | grep "${TRANSIT_NET}\." | grep "cpod-" | awk -F "/" '{print $3}' | sort -n -t "." -k 4 | head -1 )
-	echo ${FIRST_LINE}
 	LAST_LINE=$( grep ${ROOT_DOMAIN} ${DNSMASQ} | grep "${TRANSIT_NET}\." | grep "cpod-" | awk -F "/" '{print $3}' | sort -n -t "." -k 4 | tail -1 )
 
 	TRANSIT_SUBNET=$( echo ${FIRST_LINE} | sed 's!^.*/!!' | sed 's/\.[0-9]*$//' )
@@ -88,14 +87,6 @@ modify_dnsmasq() {
 	echo "Modifying '${DNSMASQ}' and '${HOSTS}'."
 	echo "server=/cpod-${1}.${ROOT_DOMAIN}/${2}" >> ${DNSMASQ}
 	GEN_PASSWORD="$(pwgen -s -1 15 1)!"
-
-	#PRIME=$( echo $RANDOM % 15 + 1 | bc )
-	#SECOND=$( expr 15 - ${PRIME} )
-
-	#PRIME=$( pwgen -s -1 ${PRIME} 1 )
-	#SECOND=$( pwgen -s -1 ${SECOND} 1 )
-
-	#GEN_PASSWD="${PRIME}!${SECOND}"
 
 	printf "${2}\tcpod-${1}\t#${OWNER}\t${GEN_PASSWORD}\n" >> ${HOSTS}
 
