@@ -3,6 +3,7 @@ IMAGE_NAME=cpod/${CONTAINER_NAME}
 VOLUME=
 
 build: Dockerfile
+	bash generate-conf.sh
 	docker build -t $(IMAGE_NAME) .
 
 start:

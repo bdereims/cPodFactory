@@ -37,8 +37,8 @@ main() {
 	#ssh -o StrictHostKeyChecking=no root@${CPOD_NAME_LOWER} "./${SHELL_SCRIPT}" 
 
         sshpass -p ${ROOT_PASSWD} scp ~/.ssh/id_rsa.pub root@${THEIP}:/root/.ssh/authorized_keys 2>&1 > /dev/null
-        scp -o StrictHostKeyChecking=no ${SCRIPT} root@${THEIP}:./${SHELL_SCRIPT}
-        ssh -o StrictHostKeyChecking=no root@${THEIP} "./${SHELL_SCRIPT}"
+        scp -o StrictHostKeyChecking=no ${SCRIPT} root@${THEIP}:./${SHELL_SCRIPT} 2>&1 > /dev/null
+        ssh -o StrictHostKeyChecking=no root@${THEIP} "./${SHELL_SCRIPT}" 2>&1 > /dev/null
 
 	rm ${SCRIPT}
 }

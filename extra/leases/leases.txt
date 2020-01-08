@@ -1,24 +1,11 @@
-29 cpod-DEMOAPPDEFENSE gzekri stop
-30 cpod-DEMOAPPDEFENSE gzekri delete
-33 cpod-OPST hedimo stop
-34 cpod-OPST hedimo delete
-57 cpod-OPST hedimo stop
-58 cpod-OPST hedimo delete
-59 cpod-OPST hedimo stop
-60 cpod-OPST hedimo delete
-61 cpod-OPST hedimo stop
-62 cpod-OPST hedimo delete
-63 cpod-OPST hedimo stop
-64 cpod-OPST hedimo delete
-65 cpod-MCH mchouikhi stop
-66 cpod-MCH mchouikhi delete
-73 cpod-GROUPAMA adeleporte stop
-74 cpod-GROUPAMA adeleporte delete
-97 cpod-PACIFICFBE fbenrejdal stop
-98 cpod-PACIFICFBE fbenrejdal delete
-99 cpod-MLEDEMO lelouchm stop
-100 cpod-MLEDEMO lelouchm delete
-109 cpod-JFC jcouturier stop
-110 cpod-JFC jcouturier delete
-111 cpod-ACA-DC1 acaussignac stop
-112 cpod-ACA-DC1 acaussignac delete
+276 cpod-MMH-CLOUD adeleporte stop 17/01/20
+280 cpod-MMH-LEGACY adeleporte stop 17/01/20
+286 cpod-MLE-K8S lelouchm stop 17/01/20
+288 cpod-FBE fbenrejdal stop 20/01/20
+290 cpod-PCF fbenrejdal stop 20/01/20
+292 cpod-MAYA mkurdi stop 20/01/20
+294 cpod-MLE-TEST lelouchm stop 20/01/20
+305 cpod-*BHAP* bhappe stop 21/01/20
+306 cpod-GROUPAMA adeleporte stop 21/01/20
+311 cpod-OCP hedimo stop 21/01/20
+312 cpod-BHAPPE bhappe stop 21/01/20

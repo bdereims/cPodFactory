@@ -7,7 +7,7 @@
 SLACK=YES
 LEASE=YES
 
-ROOT_DOMAIN="az-lab.shwrfr.com"
+export ROOT_DOMAIN="az-lab.shwrfr.com"
 
 # Transit LS for cPodRouter connectivity
 TRANSIT=172.20

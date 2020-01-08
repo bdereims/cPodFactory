@@ -113,7 +113,13 @@ lease() {
 	ACTION=${1}
 	NAME=${2}
 	OWNER=${3}
-	./cpod_lease.sh ${ACTION} ${NAME} ${OWNER}
+	if [ "${ACTION}" == "list" ]; then
+		NAME="a"
+		OWNER="a"
+		./cpod_lease.sh ${ACTION} ${NAME} ${OWNER}
+	else 
+		./cpod_lease.sh ${ACTION} ${NAME} ${OWNER}
+	fi
 }
 
 

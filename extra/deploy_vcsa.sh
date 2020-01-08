@@ -83,7 +83,7 @@ do
 	echo "Installing..."
 	#STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
 	STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment )
-	echo ${STATUS} | grep ".status" && STATUS=$( echo ${STATUS} | jq '.status' | sed 's/"//g' )	
+	echo ${STATUS} | grep ".status" 2>&1 > /dev/null && STATUS=$( echo ${STATUS} | jq '.status' | sed 's/"//g' )	
 	
 	if [ "${STATUS}" == "RUNNING" ] && [ ${ONCE} -eq 0 ]; then
 		ONCE=1
