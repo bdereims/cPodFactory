@@ -7,6 +7,10 @@
 SLACK=NO
 LEASE=NO
 
+# NSX-V | NSX-T | VLAN
+BACKEND_NETWORK=NSX-V
+SPEC=SHWRFR
+
 ROOT_DOMAIN="az-demo.shwrfr.com"
 
 # Transit LS for cPodRouter connectivity

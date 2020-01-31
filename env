@@ -15,18 +15,22 @@ case $WHERE in
 	"172.16.100.20/22")
 		ALL_CLUSTER=(intel)
 		;;
+	"164.132.217.50/28")
+		ALL_CLUSTER=(ovh)
+		;;
 esac
 
-for CLUSTER in ${ALL_CLUSTER[@]}; do
-        RESULT=$( ./extra/check_datastore.sh ${CLUSTER} )
-        if [ "${RESULT}" == "Ok!" ]; then
-                break
-        fi
-done
+#for CLUSTER in ${ALL_CLUSTER[@]}; do
+#        RESULT=$( ./extra/check_datastore.sh ${CLUSTER} )
+#        if [ "${RESULT}" == "Ok!" ]; then
+#                break
+#        fi
+#done
 
 ENV=$CLUSTER
 if [[ ! ${CLUSTER} ]]; then
 	ENV=${ALL_CLUSTER[0]}
 fi
+	ENV=${ALL_CLUSTER[0]}
 
 source env-${ENV}

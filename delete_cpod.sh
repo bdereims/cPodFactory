@@ -23,7 +23,14 @@ mutex() {
 }
 
 network_delete() {
-	${NETWORK_DIR}/delete_logicalswitch.sh ${1} ${2}
+	case "${BACKEND_NETWORK}" in
+	NSX-V)
+		${NETWORK_DIR}/delete_logicalswitch.sh ${1} ${2}
+		;;
+	VLAN)
+		${NETWORK_DIR}/delete_vlan_portgroup.sh ${2}
+		;;
+	esac
 }
 
 vapp_delete() {

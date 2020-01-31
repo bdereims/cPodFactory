@@ -44,7 +44,7 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "vim-cmd hostsvc/vmotion/vnic_set vmk0" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system settings advanced set -o /Mem/ShareForceSalting -i 0" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${CPODROUTER} --share=/data/Datastore --volume-name=Datastore" 2>&1 > /dev/null
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=ISO-Bank -r" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=BITS -r" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"nameserver ${CPODROUTER}\" > /etc/resolv.conf ; echo \"search ${DOMAIN}\" >> /etc/resolv.conf" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "printf \"${GEN_PASSWORD}\n${GEN_PASSWORD}\n\" | passwd root 2>&1 > /dev/null" 2>&1 > /dev/null
 	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0" 2>&1 > /dev/null

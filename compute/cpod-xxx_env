@@ -36,13 +36,9 @@ export NAME_VCSA=VCSA
 export NAME_PSC=PSC
 export IP_VCSA=${SUBNET}.3
 export IP_PSC=${SUBNET}.2
-#export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-5973321.iso
-#export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-7312210.iso
-#export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-7515524.iso
-#export OVA_VCSA=${BITS}/VMware-VCSA-all-6.5.0-8024368.iso
 #export OVA_VCSA=${BITS}/VMware-VCSA-all-6.7.0-8217866.iso
-#export OVA_VCSA=${BITS}/VMware-VCSA-all-6.7.0-8217866.iso
-export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova
+#export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova
+export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-7.0.0.10000-15525994_OVF10.ova
 export TARGET_VCSA=${SUBNET}.21
 export DATASTORE_VCSA=Datastore
 export PORTGROUP_VCSA="VM Network"
@@ -70,11 +66,11 @@ export OVA_VROPS=${BITS}/vRealize-Operations-Manager-Appliance-7.0.0.10098133_OV
 
 export HOSTNAME_PHOTONOS=photonos
 export NAME_PHOTONOS=photonos
-export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-49fd219.ova
+export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-9355405.ova
 
 export HOSTNAME_FORTYTWO=forty-two
 export NAME_FORTYTWO=FORTY-TWO
-export OVA_FORTYTWO=${BITS}/forty-two-20191007.ova
+export OVA_FORTYTWO=${BITS}/template-FORTY-TWO.ova
 
 export HOSTNAME_UBUNTU=ubuntu
 export NAME_UBUNTU=Ubuntu

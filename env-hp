@@ -7,6 +7,9 @@
 CLUSTER="hp"
 HEADER="cPod"
 
+# NSX-V | NSX-T | VLAN
+BACKEND_NETWORK=NSX-V
+
 NETWORK_DIR=network
 COMPUTE_DIR=compute
 EXTRA_DIR=extra

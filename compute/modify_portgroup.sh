@@ -19,6 +19,7 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 -e "s/###VCENTER_DATACENTER###/${VCENTER_DATACENTER}/" \
 -e "s/###VCENTER_CLUSTER###/${VCENTER_CLUSTER}/" \
 -e "s/###PORTGTOUP###/${1}/" \
+-e "s/###SPEC###/${SPEC}/" \
 ${SCRIPT}
 
 #echo "Modifying '${1}' with Promiscuous and ForgedTransmits."

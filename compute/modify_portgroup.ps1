@@ -7,6 +7,7 @@ $vcPass = "###VCENTER_PASSWD###"
 $Datacenter = "###VCENTER_DATACENTER###"
 $Cluster = "###VCENTER_CLUSTER###"
 $Portgroup = "###PORTGTOUP###"
+$Spec = "###SPEC###"
 
 Function Set-MacLearn {
 <#
@@ -100,6 +101,17 @@ Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 
 #Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true
 Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true
-Get-VDPortgroup $Portgroup | Get-VDUplinkTeamingPolicy | Set-VDUplinkTeamingPolicy -ActiveUplinkPort "Uplink 2" -StandbyUplinkPort "Uplink 1"
+
+switch ($Spec) {
+	"OVH" {
+		$unusedPortsList = "pcc-178-32-194-72_DC3594-vrack_up1", "pcc-178-32-194-72_DC3594-vrack_up2", "pcc-178-32-194-72_DC3594-vrack_up3"
+		Get-VDPortgroup $Portgroup | Get-VDUplinkTeamingPolicy | Set-VDUplinkTeamingPolicy -ActiveUplinkPort "lag1" -UnusedUplinkPort $unusedPortsList -LoadBalancingPolicy LoadBalanceIP
+		Break
+	}
+	"SHWRFR" {
+		Get-VDPortgroup $Portgroup | Get-VDUplinkTeamingPolicy | Set-VDUplinkTeamingPolicy -ActiveUplinkPort "Uplink 2" -StandbyUplinkPort "Uplink 1"
+		Break
+	}
+}
 
 Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $true -EnablePromiscuous $false -EnableForgedTransmit $true -EnableMacChange $false

@@ -32,7 +32,7 @@ Write-Host "Add cPodRouter VM."
 $CpodRouter = New-VM -Name cPod-$cPodName-cpodrouter -VM $templateVM -ResourcePool $Vapp -Datastore $Datastore
 
 Write-Host "Add Disk for /data in cPodRouter."
-$CpodRouter | New-HardDisk -StorageFormat Thin -CapacityGB 1000
+$CpodRouter | New-HardDisk -StorageFormat Thin -CapacityGB 2000
 
 Write-Host "Modify cPodRouter vNIC."
 Get-NetworkAdapter -VM $CpodRouter | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
@@ -48,8 +48,8 @@ For ($i=1; $i -le $numberESX; $i++) {
 	$ESXVM = New-VM -Name cPod-$cPodName-esx-$i -VM $templateESX -ResourcePool $Vapp -Datastore $Datastore
 
 	# Adding Disk for vVSAN
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 20
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 100
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 48 
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 256 
 
 	# Local Datastore for VCSA on ESX-01
 	if ($i -eq 1) {

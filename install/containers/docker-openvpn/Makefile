@@ -11,6 +11,7 @@ start:
 	--net=host \
 	--device=/dev/net/tun \
 	--cap-add=NET_ADMIN \
+	--restart=always \
 	--name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 stop:

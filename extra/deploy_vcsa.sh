@@ -39,7 +39,7 @@ if [ "${LINE}" != "" ] && [ "${LINE}" != "${2}" ]; then
         exit 1
 fi
 
-STATUS=$( ping -c 2 ${IP} 2>&1 > /dev/null ; echo $? )
+STATUS=$( ping -c 1 ${IP} 2>&1 > /dev/null ; echo $? )
 STATUS=$(expr $STATUS)
 if [ ${STATUS} == 0 ]; then
         echo "Error: Something has the same IP."
@@ -53,6 +53,34 @@ PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
 ./extra/post_slack.sh "Deploying a new VCSA for *${1}*. We're working for you, it takes ages. Stay tuned..."
 
 export MYSCRIPT=/tmp/$$
+
+if [ "${VCSA_PLACEMENT}" == "ATSIDE" ]; then
+
+CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
+VAPP="cPod-${NAME_HIGHER}"
+NAME="${VAPP}-vcsa"
+DATASTORE=${VCENTER_DATASTORE}
+
+cat << EOF > ${MYSCRIPT}
+export LANG=en_US.UTF-8
+cd /root/cPodFactory/ovftool
+./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
+--sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
+--X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
+--name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
+--powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=tiny \
+--diskMode=thin --net:"Network 1"="${CPOD_PORTGROUP}" --prop:guestinfo.cis.appliance.net.prefix=24 \
+--prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
+--prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
+--prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
+--prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
+--prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
+--prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
+--prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
+vi://${VCENTER_ADMIN}:${VCENTER_PASSWD}@${VCENTER}/${VCENTER_DATACENTER}/host/${VCENTER_CLUSTER}/Resources/${VAPP}
+EOF
+
+else
 
 cat << EOF > ${MYSCRIPT}
 export LANG=en_US.UTF-8
@@ -72,6 +100,8 @@ cd /root/cPodFactory/ovftool
 --prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
 vi://root:${PASSWORD}@${SUBNET}.21:443
 EOF
+
+fi
 
 bash ${MYSCRIPT}
 

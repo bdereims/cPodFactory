@@ -9,6 +9,7 @@ build: Dockerfile
 start:
 	docker run -d \
 	--net=host \
+	--restart=always \
 	--name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 stop:

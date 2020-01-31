@@ -9,7 +9,7 @@ RUN apk update && apk upgrade && \
 ADD haproxy/conf/. /etc/haproxy/.
 RUN mkdir -p /var/lib/haproxy \
 	&& chown -R haproxy:haproxy /var/lib/haproxy \ 
-	&& chmod 600 /etc/haproxy/*
+	&& chmod -R 600 /etc/haproxy/*
 
 ADD ./startup.sh /opt/startup.sh
 

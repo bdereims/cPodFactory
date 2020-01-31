@@ -69,11 +69,20 @@ de_mutex() {
 }
 
 network_create() {
-	NSX_LOGICALSWITCH="cpod-${NAME_LOWER}"
-	${NETWORK_DIR}/create_logicalswitch.sh ${NSX_TRANSPORTZONE} ${NSX_LOGICALSWITCH}
+	case "${BACKEND_NETWORK}" in
+	NSX-V)
+		NSX_LOGICALSWITCH="cpod-${NAME_LOWER}"
+		${NETWORK_DIR}/create_logicalswitch.sh ${NSX_TRANSPORTZONE} ${NSX_LOGICALSWITCH}
 
-	PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${NSX_LOGICALSWITCH}'") | .portgroup' | sed 's/"//g' )
-	PORTGROUP_NAME=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
+		PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${NSX_LOGICALSWITCH}'") | .portgroup' | sed 's/"//g' )
+		PORTGROUP_NAME=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
+		;;
+	VLAN)
+		PORTGROUP_NAME="cpod-${NAME_LOWER}"
+		VLANID=${TRANSIT_IP}
+		${NETWORK_DIR}/create_vlan_portgroup.sh ${VLANID} ${PORTGROUP_NAME}
+		;;
+	esac
 
 	${COMPUTE_DIR}/modify_portgroup.sh ${PORTGROUP_NAME}
 }
