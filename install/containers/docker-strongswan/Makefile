@@ -1,6 +1,6 @@
 CONTAINER_NAME=strongswan
 IMAGE_NAME=cpod/${CONTAINER_NAME}
-VOLUME=/data/StrongSwan
+VOLUME=/data/volumes/strongswan
 
 build: Dockerfile
 	mkdir -p $(VOLUME)

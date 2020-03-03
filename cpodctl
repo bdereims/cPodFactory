@@ -39,7 +39,8 @@ create_cpod() {
 	if [ "$NAME" == "X" ]; then	
 		while :
 		do
-			NAME=$( ./extra/petname.sh )
+			#NAME=$( ./extra/petname.sh )
+			NAME=$( ./extra/ikeaname.sh )
 			grep "$NAME" /etc/hosts
 			if [ $? -eq 1 ]; then
 				break
@@ -49,7 +50,7 @@ create_cpod() {
 		NAME=$( echo $NAME | tr '[:lower:]' '[:upper:]' )
 	fi
 
-	if [ $NBESX -gt 0 ] && [ $NBESX -le 9 ] || [ "${FORCE}" == "1" ]; then 
+	if [ $NBESX -ge 1 ] && [ $NBESX -le 9 ] || [ "${FORCE}" == "1" ]; then 
 		if [ "${2}" == "" ]; then OWNER="admin"; fi
 		./create_cpod.sh ${NAME} ${NBESX} ${OWNER}
 	else

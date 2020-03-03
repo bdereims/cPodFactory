@@ -68,7 +68,7 @@ cd /root/cPodFactory/ovftool
 --sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
 --X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
 --name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
---powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=tiny \
+--powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=small \
 --diskMode=thin --net:"Network 1"="${CPOD_PORTGROUP}" --prop:guestinfo.cis.appliance.net.prefix=24 \
 --prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
 --prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \

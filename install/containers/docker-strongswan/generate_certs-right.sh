@@ -1,11 +1,11 @@
 #!/bin/sh
 
 C=FR
-O=SHWRFR
-CA_CN=shwrfr.com
-SERVER_CN=az-demo.shwrfr.com
-SERVER_SAN=az-demo.shwrfr.com
-CLIENT_CN="bdereims@vmware.co"
+O=CLOUD-GARAGE
+CA_CN=az-rbx.cloud-garage.net
+SERVER_CN=az-rbx.cloud-garage.net
+SERVER_SAN=az-rbx.cloud-garage.net
+CLIENT_CN="bdereims@vmware.com"
 
 CONFIG_DIR=$PWD/config/ipsec.d
 IPSEC="docker run -it --rm=true -v $CONFIG_DIR:/etc/ipsec.d cpod/strongswan"
