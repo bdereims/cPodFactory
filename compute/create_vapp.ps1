@@ -38,8 +38,13 @@ Write-Host "Modify cPodRouter vNIC."
 Get-NetworkAdapter -VM $CpodRouter | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
 Start-VM -VM $CpodRouter -Confirm:$false 
 
+Start-Sleep -s 5 
+
 Write-Host "Launch Update script in the cPod context."
-Invoke-VMScript -VM $CpodRouter -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $asn ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 45 -RunAsync
+Invoke-VMScript -VM $CpodRouter -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $asn ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 20 -RunAsync
+if ($numberESX -lt 2) {
+	Start-Sleep -s 20 
+}
 
 #####
 Write-Host "Add ESX VMs."

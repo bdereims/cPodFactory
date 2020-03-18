@@ -27,7 +27,10 @@ do
 		ISTHERE=0
 	fi
 done
-sleep 60
+
+if [ ${NUM_ESX} -ge 1 ]; then
+	sleep 60
+fi
 
 I=$( cat ${DHCP_LEASE} | wc -l )
 for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
@@ -50,7 +53,9 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0" 2>&1 > /dev/null
 done
 
-printf "${BASEIP}3\tvcsa\n" >> ${HOSTS}
+if [ ${NUM_ESX} -ge 1 ]; then
+	printf "${BASEIP}3\tvcsa\n" >> ${HOSTS}
+fi
 #printf "${BASEIP}4\tnsx\n" >> ${HOSTS}
 #printf "#${BASEIP}5-7\tnsx controllers\n" >> ${HOSTS}
 #printf "${BASEIP}8\tedge\n" >> ${HOSTS}

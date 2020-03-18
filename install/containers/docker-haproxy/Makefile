@@ -23,3 +23,4 @@ clean:
 clean-volume:
 	rm -fr $(VOLUME)/{*,.??*}
 
+all: stop clean build start
