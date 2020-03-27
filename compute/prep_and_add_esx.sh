@@ -29,7 +29,8 @@ do
 done
 
 if [ ${NUM_ESX} -ge 1 ]; then
-	sleep 60
+	#sleep 60
+	sleep 40
 fi
 
 I=$( cat ${DHCP_LEASE} | wc -l )

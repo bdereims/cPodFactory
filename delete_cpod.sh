@@ -33,8 +33,8 @@ network_delete() {
 	esac
 }
 
-vapp_delete() {
-	${COMPUTE_DIR}/delete_vapp.sh ${1}
+respool_delete() {
+	${COMPUTE_DIR}/delete_resourcepool.sh ${1}
 }
 
 modify_dnsmasq() {
@@ -93,8 +93,7 @@ main() {
 		modify_dnsmasq ${CPOD_NAME_LOWER}
 	release_mutex
 
-	vapp_delete ${NAME_HIGH}
-	#sleep 15
+	respool_delete ${NAME_HIGH}
 	sleep 5
 	network_delete ${NSX_TRANSPORTZONE} ${CPOD_NAME_LOWER}
 
