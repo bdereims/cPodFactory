@@ -43,9 +43,9 @@ Get-Cluster | Where-Object {$_.ExtensionData.TriggeredAlarmState} | ForEach-Obje
     }
 }
 
-$thisDataStore = Get-datastore Datastore
+$thisDataStore = Get-datastore nfsDatastore
 get-vmhost | foreach {
-	$_ | Get-AdvancedSetting -name "Syslog.global.logDir" | set-advancedsetting -Value "[Datastore] scratch/log" -confirm:$false
+	$_ | Get-AdvancedSetting -name "Syslog.global.logDir" | set-advancedsetting -Value "[nfsDatastore] scratch/log" -confirm:$false
 	$_ | Get-AdvancedSetting UserVars.SuppressShellWarning | Set-AdvancedSetting -Value 1 -confirm:$false
 	Remove-VmHostNtpServer -NtpServer 172.16.2.1 -VMHost $_ -confirm:$false
 	Add-VmHostNtpServer -NtpServer cpodrouter.$Domain -VMHost $_

@@ -24,18 +24,22 @@ Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 #####
 
 Write-Host "Create RessourcePool."
-$ResPool = New-ResourcePool -Name cPod-$cPodName -Location ( Get-Cluster -Name $Cluster ) 
+#$ResPool = New-ResourcePool -Name cPod-$cPodName -MemLimitGB 96 -Location ( Get-Cluster -Name $Cluster ) 
+$ResPool = New-ResourcePool -Name cPod-$cPodName -Location ( Get-ResourcePool -Name cPod-Workload ) 
 
 Write-Host "Add cPodRouter VM."
 $CpodRouter = New-VM -Name cPod-$cPodName-cpodrouter -VM $templateVM -ResourcePool $ResPool -Datastore $Datastore -LinkedClone -ReferenceSnapshot root
 
 Write-Host "Add Disk for /data in cPodRouter."
-$CpodRouter | New-HardDisk -StorageFormat Thin -CapacityGB 2000
+# vSAN optimized with multiple components = 6x255 = 1530Gb
+For ($i=1; $i -le 6; $i++) {
+	$CpodRouter | New-HardDisk -StorageFormat Thin -CapacityGB 255
+}
 
 Write-Host "Modify cPodRouter vNIC."
 Get-NetworkAdapter -VM $CpodRouter | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
-Start-VM -VM $CpodRouter -Confirm:$false 
 
+Start-VM -VM $CpodRouter -Confirm:$false 
 Start-Sleep -s 5 
 
 Write-Host "Launch Update script in the cPod context."
@@ -45,6 +49,7 @@ if ($numberESX -lt 2) {
 }
 
 #####
+
 Write-Host "Add ESX VMs."
 For ($i=1; $i -le $numberESX; $i++) {
 	Write-Host "-> cPod-$cPodName-esx-$i"

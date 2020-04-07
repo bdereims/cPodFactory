@@ -26,7 +26,7 @@ export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/Cluster
 #export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/MANAGEMENT
 #export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/Edge
 #export DATASTORE=Datastore
-export DATASTORE=${DATASTORE:="Datastore"}
+export DATASTORE=${DATASTORE:="nfsDatastore"}
 export BITS=/data/BITS
 
 #export HOSTNAME_VCSA=vcsa.${DOMAIN}
