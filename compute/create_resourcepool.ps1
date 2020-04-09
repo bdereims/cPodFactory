@@ -56,11 +56,12 @@ For ($i=1; $i -le $numberESX; $i++) {
 	$ESXVM = New-VM -Name cPod-$cPodName-esx-$i -VM $templateESX -ResourcePool $ResPool -Datastore $Datastore -LinkedClone -ReferenceSnapshot root
 
 	# Adding Disk for vVSAN
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 48 
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 256 
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 100
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 255
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 255
 
 	# Local Datastore for VCSA
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 100 
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 50 
 	
 	Get-NetworkAdapter -VM $ESXVM | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
 
