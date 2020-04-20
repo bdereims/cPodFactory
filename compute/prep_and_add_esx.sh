@@ -21,7 +21,7 @@ ISTHERE=0
 NUM_ESX=$( expr ${NUM_ESX} )
 while [ ${ISTHERE} != ${NUM_ESX} ]
 do
-	sleep 10 
+	sleep 3 
 	ISTHERE=$( cat ${DHCP_LEASE} | cut -d ' ' -f2 | sort -u | wc -l )
 	if [ "${ISTHERE}X" == "X" ]; then
 		ISTHERE=0
@@ -29,7 +29,7 @@ do
 done
 
 if [ ${NUM_ESX} -ge 1 ]; then
-	sleep 60
+	sleep 40
 fi
 
 I=$( cat ${DHCP_LEASE} | wc -l )
@@ -48,8 +48,11 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system settings advanced set -o /Mem/ShareForceSalting -i 0" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${CPODROUTER} --share=/data/Datastore --volume-name=nfsDatastore" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=BITS -r" 2>&1 > /dev/null
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "for DISK in $( esxcli storage core device list | grep mpx | sed -e \"/^.*D/d\" -e \"/T0/d\" ); do echo ${DISK} ; esxcli storage nmp satp rule add -s VMW_SATP_LOCAL -d ${DISK} -o enable_ssd ; esxcli storage core claiming reclaim -d ${DISK} ; done" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"nameserver ${CPODROUTER}\" > /etc/resolv.conf ; echo \"search ${DOMAIN}\" >> /etc/resolv.conf" 2>&1 > /dev/null
+	
+	sshpass -p ${PASSWORD} scp -o StrictHostKeyChecking=no /root/update/ssd_esx_tag.ssh root@${IP}:/tmp/ssd_esx_tag.ssh 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "/tmp/ssd_esx_tag.ssh" 2>&1 > /dev/null
+
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "printf \"${GEN_PASSWORD}\n${GEN_PASSWORD}\n\" | passwd root 2>&1 > /dev/null" 2>&1 > /dev/null
 	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0" 2>&1 > /dev/null
 done

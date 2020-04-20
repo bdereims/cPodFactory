@@ -56,52 +56,58 @@ export MYSCRIPT=/tmp/$$
 
 if [ "${VCSA_PLACEMENT}" == "ATSIDE" ]; then
 
-CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
-VAPP="cPod-${NAME_HIGHER}"
-NAME="${VAPP}-vcsa"
-DATASTORE=${VCENTER_DATASTORE}
+	VAPP="cPod-${NAME_HIGHER}"
+	NAME="${VAPP}-vcsa"
+	DATASTORE=${VCENTER_DATASTORE}
 
-PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${CPOD_PORTGROUP}'") | .portgroup' | sed 's/"//g' )
-CPOD_PORTGROUP=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
+	case "${BACKEND_NETWORK}" in
+		NSX-V)
+			PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${CPOD_PORTGROUP}'") | .portgroup' | sed 's/"//g' )
+			CPOD_PORTGROUP=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
+			;;
+		VLAN)
+			CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
+			;;
+	esac
 
-cat << EOF > ${MYSCRIPT}
-export LANG=en_US.UTF-8
-cd /root/cPodFactory/ovftool
-./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
---sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
---X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
---name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
---powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=small \
---diskMode=thin --net:"Network 1"="${CPOD_PORTGROUP}" --prop:guestinfo.cis.appliance.net.prefix=24 \
---prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
---prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
---prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
---prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
---prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
---prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
---prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
-vi://${VCENTER_ADMIN}:${VCENTER_PASSWD}@${VCENTER}/${VCENTER_DATACENTER}/host/${VCENTER_CLUSTER}/Resources/cPod-Workload/${VAPP}
+	cat << EOF > ${MYSCRIPT}
+	export LANG=en_US.UTF-8
+	cd /root/cPodFactory/ovftool
+	./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
+	--sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
+	--X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
+	--name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
+	--powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=small \
+	--diskMode=thin --net:"Network 1"="${CPOD_PORTGROUP}" --prop:guestinfo.cis.appliance.net.prefix=24 \
+	--prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
+	--prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
+	--prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
+	--prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
+	--prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
+	--prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
+	--prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
+	vi://${VCENTER_ADMIN}:${VCENTER_PASSWD}@${VCENTER}/${VCENTER_DATACENTER}/host/${VCENTER_CLUSTER}/Resources/cPod-Workload/${VAPP}
 EOF
 
 else
 
-cat << EOF > ${MYSCRIPT}
-export LANG=en_US.UTF-8
-cd /root/cPodFactory/ovftool
-./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
---sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
---X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
---name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
---powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=tiny \
---diskMode=thin --net:"Network 1"="VM Network" --prop:guestinfo.cis.appliance.net.prefix=24 \
---prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
---prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
---prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
---prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
---prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
---prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
---prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
-vi://root:${PASSWORD}@${SUBNET}.21:443
+	cat << EOF > ${MYSCRIPT}
+	export LANG=en_US.UTF-8
+	cd /root/cPodFactory/ovftool
+	./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
+	--sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
+	--X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
+	--name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
+	--powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=tiny \
+	--diskMode=thin --net:"Network 1"="VM Network" --prop:guestinfo.cis.appliance.net.prefix=24 \
+	--prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
+	--prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
+	--prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
+	--prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
+	--prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
+	--prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
+	--prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
+	vi://root:${PASSWORD}@${SUBNET}.21:443
 EOF
 
 fi

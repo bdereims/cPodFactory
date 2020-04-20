@@ -36,7 +36,6 @@ create_cpod() {
 	OWNER=${3}
 	NAME=$( echo $NAME | tr '[:lower:]' '[:upper:]' )
 
-	NAME="X"
 	if [ "$NAME" == "X" ]; then	
 		while :
 		do
