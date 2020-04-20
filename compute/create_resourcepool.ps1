@@ -62,9 +62,8 @@ For ($i=1; $i -le $numberESX; $i++) {
 	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 512
 	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 512
 
-
-	# Local Datastore for VCSA - option fot shwrfr
-	#$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 100 
+	# Local Datastore for VCSA
+	#$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 50 
 	
 	Get-NetworkAdapter -VM $ESXVM | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
 
