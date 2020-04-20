@@ -26,7 +26,7 @@ export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/Cluster
 #export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/MANAGEMENT
 #export TARGET=vcsa.${DOMAIN}/cPod-${CPOD}/host/Edge
 #export DATASTORE=Datastore
-export DATASTORE=${DATASTORE:="Datastore"}
+export DATASTORE=${DATASTORE:="nfsDatastore"}
 export BITS=/data/BITS
 
 #export HOSTNAME_VCSA=vcsa.${DOMAIN}
@@ -37,7 +37,8 @@ export NAME_PSC=PSC
 export IP_VCSA=${SUBNET}.3
 export IP_PSC=${SUBNET}.2
 #export OVA_VCSA=${BITS}/VMware-VCSA-all-6.7.0-8217866.iso
-export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova"}
+#export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova"}
+export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-7.0.0.10100-15952498_OVF10.ova"}
 #export OVA_VCSA=${BITS}/VMware-vCenter-Server-Appliance-7.0.0.10000-15525994_OVF10.ova
 export TARGET_VCSA=${SUBNET}.21
 export DATASTORE_VCSA=Datastore

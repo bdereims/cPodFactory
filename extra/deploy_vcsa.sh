@@ -61,6 +61,9 @@ VAPP="cPod-${NAME_HIGHER}"
 NAME="${VAPP}-vcsa"
 DATASTORE=${VCENTER_DATASTORE}
 
+PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${CPOD_PORTGROUP}'") | .portgroup' | sed 's/"//g' )
+CPOD_PORTGROUP=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
+
 cat << EOF > ${MYSCRIPT}
 export LANG=en_US.UTF-8
 cd /root/cPodFactory/ovftool
@@ -77,7 +80,7 @@ cd /root/cPodFactory/ovftool
 --prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
 --prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
 --prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
-vi://${VCENTER_ADMIN}:${VCENTER_PASSWD}@${VCENTER}/${VCENTER_DATACENTER}/host/${VCENTER_CLUSTER}/Resources/${VAPP}
+vi://${VCENTER_ADMIN}:${VCENTER_PASSWD}@${VCENTER}/${VCENTER_DATACENTER}/host/${VCENTER_CLUSTER}/Resources/cPod-Workload/${VAPP}
 EOF
 
 else

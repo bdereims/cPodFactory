@@ -9,6 +9,8 @@ server 10.255.254.0 255.255.255.0
 ifconfig-pool-persist ipp.txt
 push \"route 10.0.0.0 255.0.0.0\"
 push \"route 172.16.0.0 255.240.0.0\"
+push \"route 172.22.10.0 255.255.255.0\"
+push \"route 172.23.0.0 255.255.0.0\"
 push \"route 192.168.0.0 255.255.0.0\"
 push \"route ${ADDRIP} 255.255.255.255\"
 push \"dhcp-option DNS ${ADDRIP}\"

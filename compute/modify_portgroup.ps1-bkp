@@ -100,7 +100,7 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Defa
 Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 
 #Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true
-Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $false
+Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true
 
 switch ($Spec) {
 	"OVH" {
@@ -113,16 +113,9 @@ switch ($Spec) {
 		Break
 	}
 	"TECHDATA" {
-		$unusedPortsList = "uplink3", "uplink4"
-		Get-VDPortgroup $Portgroup | Get-VDUplinkTeamingPolicy | Set-VDUplinkTeamingPolicy -ActiveUplinkPort "uplink1" -StandbyUplinkPort "uplink2" -UnusedUplinkPort $unusedPortsList
+		Get-VDPortgroup $Portgroup | Get-VDUplinkTeamingPolicy | Set-VDUplinkTeamingPolicy -ActiveUplinkPort "uplink1" -StandbyUplinkPort "uplink2"
 		Break
 	}
 }
 
-#Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $true -EnablePromiscuous $false -EnableForgedTransmit $true -EnableMacChange $false
-Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $true -EnablePromiscuous $false -EnableForgedTransmit $true -EnableMacChange $true
-#Get-VDPortgroup -Name $Portgroup | Set-VDPortgroup -PortBinding Ephemeral -Confirm:$false 
-
-#####
-
-Disconnect-VIServer -Confirm:$false
+Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $true -EnablePromiscuous $false -EnableForgedTransmit $true -EnableMacChange $false

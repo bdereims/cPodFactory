@@ -96,7 +96,9 @@ respool_create() {
 modify_dnsmasq() {
 	echo "Modifying '${DNSMASQ}' and '${HOSTS}'."
 	echo "server=/cpod-${1}.${ROOT_DOMAIN}/${2}" >> ${DNSMASQ}
-	GEN_PASSWORD="$(pwgen -s -1 15 1)!"
+	#GEN_PASSWORD="$(pwgen -s -1 15 1)!"
+	# VCF needs 12c only
+	GEN_PASSWORD="$(pwgen -s -1 11 1)!"
 
 	printf "${2}\tcpod-${1}\t#${OWNER}\t${GEN_PASSWORD}\n" >> ${HOSTS}
 
