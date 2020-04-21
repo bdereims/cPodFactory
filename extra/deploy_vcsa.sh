@@ -62,7 +62,7 @@ if [ "${VCSA_PLACEMENT}" == "ATSIDE" ]; then
 
 	case "${BACKEND_NETWORK}" in
 		NSX-V)
-			PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${CPOD_PORTGROUP}'") | .portgroup' | sed 's/"//g' )
+			PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${CPOD_NAME_LOWER}'") | .portgroup' | sed 's/"//g' )
 			CPOD_PORTGROUP=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
 			;;
 		VLAN)
