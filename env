@@ -5,7 +5,6 @@ DNSMASQ=/etc/dnsmasq.conf
 HOSTS=/etc/hosts
 
 WHERE=$( ip addr show eth1 | grep inet | head -1 | awk '{print $2}' )
-WHERE="172.17.111.169/16"
 ADDRIP=$( ip addr show eth0 | grep inet | head -1 | awk '{print $2}' | sed 's/\/.*$//' )
 export ADDRIP
 
