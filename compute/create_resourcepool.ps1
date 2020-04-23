@@ -17,18 +17,54 @@ $Datastore = "###DATASTORE###"
 $numberESX = ###NUMESX###
 $rootDomain = "###ROOT_DOMAIN###"
 $asn = "###ASN###"
+$owner = "###OWNER###"
+
+$OwnerTag = "cPodOwner"
+$CreateTag = "cPodCreateDate"
 
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -DefaultVIServerMode multiple
 Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
+
+##### Tag Management
+
+### Owner
+
+$test = Get-TagCategory |  Where {$_.Name -eq $OwnerTag}
+if ( $test -eq $null ) {
+	New-TagCategory -Name $OwnerTag -Description "cPod Owner in order to manage resources consumption"
+} 
+
+$test = Get-Tag | Where {$_.Name -eq $owner}
+if ( $test -eq $null ) {
+	Get-TagCategory -Name $OwnerTag | New-Tag -Name $owner 
+}
+$OwnerTag = Get-Tag $owner 
+
+### CreateDate
+
+$test = Get-TagCategory |  Where {$_.Name -eq $CreateTag}
+if ( $test -eq $null ) {
+        New-TagCategory -Name $CreateTag -Description "cPod Create Date in order to manage resources consumption"
+}
+$createdate = Get-Date -UFormat "%m/%d/%Y-%R"
+$test = Get-Tag | Where {$_.Name -eq $createdate}
+if ( $test -eq $null ) {
+	Get-TagCategory -Name $CreateTag | New-Tag -Name $createdate
+}
+$CreateTag = Get-Tag $createdate
 
 #####
 
 Write-Host "Create RessourcePool."
 #$ResPool = New-ResourcePool -Name cPod-$cPodName -MemLimitGB 96 -Location ( Get-Cluster -Name $Cluster ) 
 $ResPool = New-ResourcePool -Name cPod-$cPodName -Location ( Get-ResourcePool -Name cPod-Workload ) 
+$ResPool | New-TagAssignment -Tag $OwnerTag
+$ResPool | New-TagAssignment -Tag $CreateTag
 
 Write-Host "Add cPodRouter VM."
 $CpodRouter = New-VM -Name cPod-$cPodName-cpodrouter -VM $templateVM -ResourcePool $ResPool -Datastore $Datastore
+$CpodRouter | New-TagAssignment -Tag $OwnerTag
+$CpodRouter | New-TagAssignment -Tag $CreateTag
 
 Write-Host "Add Disk for /data in cPodRouter."
 # vSAN optimized with multiple components based on vSAN 6.7 chunk of 255GB :  6x255 = 1530Gb
@@ -55,10 +91,12 @@ For ($i=1; $i -le $numberESX; $i++) {
 	Write-Host "-> cPod-$cPodName-esx-$i"
 	$ESXNUMBER="{0:d2}" -f $i
 	$ESXVM = New-VM -Name cPod-$cPodName-esx-$ESXNUMBER -VM $templateESX -ResourcePool $ResPool -Datastore $Datastore
+	$ESXVM | New-TagAssignment -Tag $OwnerTag
+	$ESXVM | New-TagAssignment -Tag $CreateTag
 
 	# Adding Disk(s) for vVsan
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 128 
-	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 128 
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 128
+	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 128
 	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 512
 	$ESXVM | New-HardDisk -StorageFormat Thin -CapacityGB 512
 

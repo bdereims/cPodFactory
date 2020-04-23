@@ -6,6 +6,7 @@
 # $3 : @IP
 # $4 : # of ESX
 # $5 : Root Domain
+# $6 : Owner 
 
 . ./env
 
@@ -34,6 +35,7 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 -e "s/###NUMESX###/${4}/" \
 -e "s/###ROOT_DOMAIN###/${5}/" \
 -e "s/###ASN###/${ASN}/" \
+-e "s/###OWNER###/${6}/" \
 ${SCRIPT}
 
 echo "Creating ResourcePool '${HEADER}-${1}' with ${4} Nested ESXi."

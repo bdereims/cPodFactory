@@ -90,7 +90,7 @@ network_create() {
 respool_create() {
 	NAME_UPPER=$( echo ${1} | tr '[:lower:]' '[:upper:]' )
 	#${COMPUTE_DIR}/create_vapp.sh ${NAME_UPPER} ${2} ${3} ${4} ${5}
-	${COMPUTE_DIR}/create_resourcepool.sh ${NAME_UPPER} ${2} ${3} ${4} ${5}
+	${COMPUTE_DIR}/create_resourcepool.sh ${NAME_UPPER} ${2} ${3} ${4} ${5} ${6}
 }
 
 modify_dnsmasq() {
@@ -163,7 +163,7 @@ main() {
 		bgp_add_peer_vtysh ${NEXT_IP} ${ASN} 
 	de_mutex
 
-	respool_create ${1} ${PORTGROUP_NAME} ${NEXT_IP} ${NUM_ESX} ${ROOT_DOMAIN}
+	respool_create ${1} ${PORTGROUP_NAME} ${NEXT_IP} ${NUM_ESX} ${ROOT_DOMAIN} ${OWNER}
 
 	echo "prep with ${1} ${NUM_ESX}"
 	prep_cpod ${1} ${NUM_ESX}
