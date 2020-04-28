@@ -88,9 +88,9 @@ if ($numberESX -lt 2) {
 
 Write-Host "Add ESX VMs."
 For ($i=1; $i -le $numberESX; $i++) {
-	Write-Host "-> cPod-$cPodName-esx-$i"
+	Write-Host "-> cPod-$cPodName-esx$i"
 	$ESXNUMBER="{0:d2}" -f $i
-	$ESXVM = New-VM -Name cPod-$cPodName-esx-$ESXNUMBER -VM $templateESX -ResourcePool $ResPool -Datastore $Datastore
+	$ESXVM = New-VM -Name cPod-$cPodName-esx$ESXNUMBER -VM $templateESX -ResourcePool $ResPool -Datastore $Datastore
 	$ESXVM | New-TagAssignment -Tag $OwnerTag
 	$ESXVM | New-TagAssignment -Tag $CreateTag
 
@@ -105,7 +105,7 @@ For ($i=1; $i -le $numberESX; $i++) {
 	
 	Get-NetworkAdapter -VM $ESXVM | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
 
-	Start-VM -VM cPod-$cPodName-esx-$ESXNUMBER -Confirm:$false
+	Start-VM -VM cPod-$cPodName-esx$ESXNUMBER -Confirm:$false
 }
 
 #####

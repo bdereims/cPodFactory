@@ -39,6 +39,7 @@ if [ "${LINE}" != "" ] && [ "${LINE}" != "${2}" ]; then
         exit 1
 fi
 
+echo "Testing if something is not using the same @IP..."
 STATUS=$( ping -c 1 ${IP} 2>&1 > /dev/null ; echo $? )
 STATUS=$(expr $STATUS)
 if [ ${STATUS} == 0 ]; then
@@ -46,6 +47,7 @@ if [ ${STATUS} == 0 ]; then
         ./extra/post_slack.sh ":wow: Are you sure that VCSA is not already deployed in ${1}. Something have the same @IP."
         exit 1
 fi
+echo "It seems all good, let's deploy ova."
 
 PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
 #echo ${PASSWORD}
@@ -120,8 +122,8 @@ while [ "${STATUS}" != "SUCCEEDED" ]
 do
 	sleep 5
 	echo "Installing..."
-	#STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
-	STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${SUBNET}.3:5480/rest/vcenter/deployment )
+	#STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${IP}:5480/rest/vcenter/deployment | jq '.status' | sed 's/"//g' )
+	STATUS=$( curl -s -k -u administrator@${AUTH_DOMAIN}:${PASSWORD} -X GET https://${IP}:5480/rest/vcenter/deployment )
 	echo ${STATUS} | grep ".status" 2>&1 > /dev/null && STATUS=$( echo ${STATUS} | jq '.status' | sed 's/"//g' )	
 	
 	if [ "${STATUS}" == "RUNNING" ] && [ ${ONCE} -eq 0 ]; then

@@ -1,5 +1,5 @@
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -DefaultVIServerMode multiple
-Connect-VIServer -Server ###VCENTER### -User ###VCENTER_ADMIN### -Password ###VCENTER_PASSWD#### 
+Connect-VIServer -Server ###VCENTER### -User ###VCENTER_ADMIN### -Password ###VCENTER_PASSWD###
 
 # Get the Cluster Object
 $VsanCluster = Get-Cluster -Name ###VCENTER_CLUSTER### 

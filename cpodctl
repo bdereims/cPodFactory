@@ -15,6 +15,7 @@ show_help() {
 	echo "vcsa [cpod_name] [owner] : deploy vcsa in cpod"
 	echo "expose [cpod_name] : expose cpod on Internet as a Public cPod, FWing any connectivity from cPod to Lab"
 	echo "lease [action] (i.e create, delete or debug) [cpod_name] [owner] : create a 15d lease on a cpod"
+	echo "cloudbuilder [cpod_name] [owner] : deplou VCF Cloud Builder OVA at side of ESX"
 }
 
 list_cpod() {
@@ -78,6 +79,17 @@ vcsa() {
 	else
 		echo "Please specify cPod name and/or owner."
 	fi
+}
+
+cloudbuilder() {
+        cd ${CPODFACTORY}
+        NAME=$( echo ${1} | tr '[:lower:]' '[:upper:]' )
+        OWNER=${2}
+        if [ "${NAME}" != "" ] && [ "${OWNER}" != "" ]; then
+                ./extra/deploy_cloudbuilder.sh ${NAME} ${OWNER}
+        else
+                echo "Please specify cPod name and/or owner."
+        fi
 }
 
 addfiler() {
@@ -191,6 +203,13 @@ do
 			shift
 			lease ${1} ${2} ${3}
 			shift
+			shift
+			shift
+			shift
+			;;
+		cloudbuilder)
+			shift
+			cloudbuilder ${1} ${2}
 			shift
 			shift
 			shift

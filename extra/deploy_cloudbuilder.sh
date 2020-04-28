@@ -38,12 +38,14 @@ if [ "${LINE}" != "" ] && [ "${LINE}" != "${2}" ]; then
         exit 1
 fi
 
+echo "Testing if something is already on the same @IP..."
 STATUS=$( ping -c 1 ${IP} 2>&1 > /dev/null ; echo $? )
 STATUS=$(expr $STATUS)
 if [ ${STATUS} == 0 ]; then
         echo "Error: Something has the same IP."
         exit 1
 fi
+echo "It seems ok, let's deploy cloudbuilder ova."
 
 PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
 

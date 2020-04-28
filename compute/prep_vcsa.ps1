@@ -18,8 +18,8 @@ New-Cluster -Name $Cluster -Location $Datacenter
 Write-Host "Add ESX VMs."
 For ($i=1; $i -le $numberESX; $i++) {
 	$ESX_NUMBER=$i.ToString("0#")
-        Write-Host "-> esx-$ESX_NUMBER"
-	Add-VMHost -Server $Vc -Name esx-$ESX_NUMBER.$DOMAIN -Location (Get-Cluster -Name $Cluster ) -User root -Password $esxPass -force:$true
+        Write-Host "-> esx$ESX_NUMBER"
+	Add-VMHost -Server $Vc -Name esx$ESX_NUMBER.$DOMAIN -Location (Get-Cluster -Name $Cluster ) -User root -Password $esxPass -force:$true
 	#Get-VMHost | Set-VMHostSysLogServer -SysLogServer $VI_SERVER
 	#Get-VMHostStorage -VMHost $vmhost | Set-VMHostStorage -SoftwareIScsiEnabled $True
 	Get-VMHostStorage -VMHost ( Get-VMHost ) | Set-VMHostStorage -SoftwareIScsiEnabled $True
