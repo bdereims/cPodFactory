@@ -5,7 +5,7 @@ _cpodctl() {
   COMPREPLY=()
 
   # All possible first values in command line
-  local ACTIONS=("delete" "password" "vcsa" "list" "create")
+  local ACTIONS=("delete" "password" "vcsa" "list" "create" "cpodbuilder")
 
   # declare an associative array for options
   declare -a SERVICES
@@ -21,7 +21,7 @@ _cpodctl() {
   # current word being autocompleted
   local cur=${COMP_WORDS[COMP_CWORD]}
 
-  if [[ "$3" == "${ACTIONS[0]}" || "$2" == "${ACTIONS[1]}" ]] ; then 
+  if [[ "$3" == "${ACTIONS[0]}" || "$3" == "${ACTIONS[2]}" || "$3" == "${ACTIONS[5]}" ]] ; then 
     COMPREPLY=( `compgen -W "${SERVICES[*]}" -- $cur` )
   else 
     COMPREPLY=( `compgen -W "${ACTIONS[*]}" -- $cur` )
