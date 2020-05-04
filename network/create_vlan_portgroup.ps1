@@ -15,7 +15,7 @@ Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 
 #####
 
-Get-VDSwitch -Name $VDS | New-VDPortgroup -Name $Portgroup -VLanId $VlanID
+Get-VDSwitch -Name $VDS | New-VDPortgroup -Name $Portgroup -VLanId $VlanID -PortBinding Ephemeral
 
 #####
 

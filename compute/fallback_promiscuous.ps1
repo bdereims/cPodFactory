@@ -99,8 +99,7 @@ Function Set-MacLearn {
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -DefaultVIServerMode multiple
 Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 
-#Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true
-Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $false
+Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true
 
 switch ($Spec) {
 	"OVH" {
@@ -119,8 +118,8 @@ switch ($Spec) {
 	}
 }
 
-Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $true -EnablePromiscuous $false -EnableForgedTransmit $true -EnableMacChange $true
-#Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true -MacChanges $true
+Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $false -EnablePromiscuous $true -EnableForgedTransmit $true -EnableMacChange $true
+Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true -MacChanges $true
 
 #####
 

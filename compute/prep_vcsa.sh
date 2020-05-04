@@ -58,4 +58,3 @@ echo "Preparing vCenter of ${1}'."
 docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:ubuntu16.04 ${SCRIPT}
 
 rm -fr ${SCRIPT}
-echo ${SCRIPT}

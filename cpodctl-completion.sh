@@ -9,7 +9,7 @@ _cpodctl() {
 
   # declare an associative array for options
   declare -a SERVICES
-  for CPOD in $( /root/cPodFactory/list_cpod.sh | tail -n +2 | awk '{print $1}' ) ; do
+  for CPOD in $( cd /root/cPodFactory ; ./list_cpod.sh | tail -n +2 | awk '{print $1}' ) ; do
     SERVICES+=( ${CPOD} )
   done 
 

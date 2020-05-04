@@ -51,8 +51,8 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"nameserver ${CPODROUTER}\" > /etc/resolv.conf ; echo \"search ${DOMAIN}\" >> /etc/resolv.conf" 2>&1 > /dev/null
 	#sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"server ${CPODROUTER}\" >> /etc/ntp.conf ; chkconfig ntpd on ; /etc/init.d/ntpd start" 2>&1 > /dev/null
 	
-	sshpass -p ${PASSWORD} scp -o StrictHostKeyChecking=no /root/update/ssd_esx_tag.ssh root@${IP}:/tmp/ssd_esx_tag.ssh 2>&1 > /dev/null
-	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "/tmp/ssd_esx_tag.ssh" 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} scp -o StrictHostKeyChecking=no /root/update/ssd_esx_tag.sh root@${IP}:/tmp/ssd_esx_tag.sh 2>&1 > /dev/null
+	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "/tmp/ssd_esx_tag.sh" 2>&1 > /dev/null
 
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "printf \"${GEN_PASSWORD}\n${GEN_PASSWORD}\n\" | passwd root 2>&1 > /dev/null" 2>&1 > /dev/null
 	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0" 2>&1 > /dev/null

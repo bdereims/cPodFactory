@@ -1,6 +1,7 @@
 #!/bin/bash
 #bdereims@vmware.com
 
+cd /root/cPodFactory
 . ./env
 
 LHEADER=$( echo ${HEADER} | tr '[:upper:]' '[:lower:]' )
