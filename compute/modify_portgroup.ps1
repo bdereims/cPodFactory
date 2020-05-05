@@ -119,6 +119,7 @@ switch ($Spec) {
 	}
 }
 
+Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $false -MacChanges $true
 Set-MacLearn -DVPortgroupName @($Portgroup) -EnableMacLearn $true -EnablePromiscuous $false -EnableForgedTransmit $true -EnableMacChange $true
 #Get-VDPortgroup $Portgroup | Get-VDSecurityPolicy | Set-VDSecurityPolicy -ForgedTransmits $true -AllowPromiscuous $true -MacChanges $true
 
