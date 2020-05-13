@@ -17,7 +17,10 @@ JSON_TEMPLATE=cloudbuilder.json
 CPOD_NAME=$( echo ${1} | tr '[:lower:]' '[:upper:]' )
 NAME_LOWER=$( echo ${HEADER}-${CPOD_NAME} | tr '[:upper:]' '[:lower:]' )
 VLAN=$( grep -m 1 "${NAME_LOWER}\s" /etc/hosts | awk '{print $1}' | cut -d "." -f 4 )
-SUBNET="172.23.$( expr ${VLAN} - 10 )"
+SUBNET="172.25.$( expr ${VLAN} - 10 )"
+
+VLAN="0"
+SUBNET="172.25.10"
 
 PASSWORD=$( ${EXTRA_DIR}/passwd_for_cpod.sh ${CPOD_NAME} ) 
 
@@ -33,9 +36,6 @@ sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###CPOD###/${NAME_LOWER}/g" \
 -e "s/###DOMAIN###/${ROOT_DOMAIN}/g" \
 ${SCRIPT}
-
-cat ${SCRIPT}
-exit 0
 
 echo "Adding entries into hosts of ${NAME_LOWER}."
 add_to_cpodrouter_hosts "${SUBNET}.3" "cloudbuilder"

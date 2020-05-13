@@ -23,7 +23,7 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 ${SCRIPT}
 
 #echo "Modifying '${1}' with Promiscuous and ForgedTransmits."
-echo "Modifying '${1}' with MacLearn and ForgedTransmits."
+echo "Modifying '${1}' with MacLearn, MacChanges and ForgedTransmits."
 #docker run --rm -it -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:ubuntu16.04powershell ${SCRIPT} 2>&1 > /dev/null
 docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:ubuntu16.04 ${SCRIPT} 2>&1 > /dev/null
 

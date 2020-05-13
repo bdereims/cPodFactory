@@ -32,7 +32,7 @@ main() {
 	
 	THEIP=$( cat /etc/hosts | awk '{print $1,$2}' | sed -n "/${CPOD_NAME_LOWER}$/p" | awk '{print $1}' )
 
-        sshpass -o LogLevel=error -p ${ROOT_PASSWD} scp ~/.ssh/id_rsa.pub root@${THEIP}:/root/.ssh/authorized_keys 2>&1 > /dev/null
+        sshpass -p ${ROOT_PASSWD} scp ~/.ssh/id_rsa.pub root@${THEIP}:/root/.ssh/authorized_keys 2>&1 > /dev/null
         scp -o StrictHostKeyChecking=no ${SCRIPT} root@${THEIP}:./${SHELL_SCRIPT} 2>&1 > /dev/null
         ssh -o StrictHostKeyChecking=no root@${THEIP} "./${SHELL_SCRIPT}" 2>&1 > /dev/null
 
