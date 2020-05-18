@@ -21,8 +21,8 @@
   },
   "sddcId": "###CPOD###.###DOMAIN###",
   "skipEsxThumbprintValidation": true,
-  "esxLicense": "1J4A3-JT24K-M8CG9-0L5H2-8RV0M",
-  "managementPoolName": "np-wcp",
+  "esxLicense": "xxx",
+  "managementPoolName": "np-wdm",
   "ceipEnabled": false,
   "ntpSpec": {
     "ntpServers": ["###SUBNET###.1"]
@@ -34,7 +34,7 @@
   },
   "esxiHostSpecs": [
     {
-      "association": "dc",
+      "association": "WDM-DC",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.21",
         "cidr": "###SUBNET###.0/24",
@@ -49,7 +49,7 @@
       "serverId": "host-1"
     },
     {
-      "association": "dc",
+      "association": "WDM-DC",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.22",
         "cidr": "###SUBNET###.0/24",
@@ -64,7 +64,7 @@
       "serverId": "host-2"
     },
     {
-      "association": "dc",
+      "association": "WDM-DC",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.23",
         "cidr": "###SUBNET###.0/24",
@@ -79,7 +79,7 @@
       "serverId": "host-3"
     },
     {
-      "association": "dc",
+      "association": "WDM-DC",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.24",
         "cidr": "###SUBNET###.0/24",
@@ -99,7 +99,7 @@
       "vcenterIP": "###SUBNET###.4",
       "vcenterHostname": "vcsa",
       "vcenterId": "vcenter-1",
-      "licenseFile": "0H0CJ-J9H5H-H83G2-009U4-9H90M",
+      "licenseFile": "xxx",
       "vmSize": "small",
       "rootVcenterPassword": "###PASSWORD###"
     }
@@ -118,7 +118,7 @@
   ],
   "clusterSpecs": [
     {
-      "clusterId": "cl",
+      "clusterId": "WDM-CL",
       "vcenterId": "vcenter-1",
       "clusterEvcMode": "",
       "vmFolders": {
@@ -185,7 +185,7 @@
     {
       "vsanId": "vsan-1",
       "vcenterId":"vcenter-1",
-      "licenseFile": "4J03H-J4HD0-48VH0-024H0-9H4KM",
+      "licenseFile": "xxx",
       "vsanDedup": "false",
       "datastoreName": "vsanDatastore"
     }
@@ -252,7 +252,7 @@
       "networkType": "MANAGEMENT",
       "subnet": "###SUBNET###.0/24",
       "gateway": "###SUBNET###.1",
-      "VLANId": "0",
+      "VLANId": "###VLAN###",
       "mtu": "1500",
       "portGroupKey": "vds-pg-mgmt",
       "standbyUplinks":[],
@@ -268,8 +268,8 @@
       "VLANId": "###VLAN###01",
       "mtu": "1500",
       "portGroupKey": "vds-pg-vmotion",
-      "association": "dc",
-      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN###.1.5", "startIpAddress": "10.###VLAN###.1.2"}],
+      "association": "WDM-DC",
+      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN###.1.254", "startIpAddress": "10.###VLAN###.1.2"}],
       "standbyUplinks":[],
       "activeUplinks":[
         "uplink1",
@@ -283,7 +283,7 @@
       "VLANId": "###VLAN###02",
       "mtu": "1500",
       "portGroupKey": "vds-pg-vsan",
-      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN###.2.5", "startIpAddress": "10.###VLAN###.2.2"}],
+      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN###.2.254", "startIpAddress": "10.###VLAN###.2.2"}],
       "standbyUplinks":[],
       "activeUplinks":[
         "uplink1",
@@ -297,7 +297,7 @@
       "VLANId": "###VLAN###04",
       "mtu": "1500",
       "portGroupKey": "vds-pg-uplink01",
-      "association": "dc",
+      "association": "WDM-DC",
       "standbyUplinks":[]
     },
     {
@@ -307,7 +307,7 @@
       "VLANId": "###VLAN###05",
       "mtu": "1500",
       "portGroupKey": "vds-pg-uplink02",
-      "association": "dc",
+      "association": "WDM-DC",
       "standbyUplinks":[]
     },
     {
@@ -315,7 +315,7 @@
       "subnet": "10.17.6.1/24",
       "gateway": "10.17.6.1",
       "mtu": "1600",
-      "association": "dc",
+      "association": "WDM-DC",
       "VLANId": "0"
     }
   ],
@@ -343,8 +343,8 @@
     },
     "vip": "###SUBNET###.10",
     "vipFqdn": "nsx",
-    "nsxtLicense": "J4687-NNK5H-88RD1-0RE2P-2H26N",
-    "transportVlanId": ###VLAN###03
+    "nsxtLicense": "xxx",
+    "transportVlanId": ###VLAN###
   },
   "excludedComponents": ["NSX-V", "AVN", "EBGP"]
 }

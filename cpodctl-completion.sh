@@ -5,7 +5,7 @@ _cpodctl() {
   COMPREPLY=()
 
   # All possible first values in command line
-  local ACTIONS=("delete" "password" "vcsa" "list" "create" "cpodbuilder")
+  local ACTIONS=("delete" "password" "vcsa" "list" "create" "cloudbuilder")
 
   # declare an associative array for options
   declare -a SERVICES

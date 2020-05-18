@@ -45,4 +45,4 @@ EOF
 
 sh ${MYSCRIPT}
 
-rm ${MYSCRIPT}
+#rm ${MYSCRIPT}
