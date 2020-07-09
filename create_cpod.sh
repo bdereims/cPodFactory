@@ -76,15 +76,21 @@ network_create() {
 
 		PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${NSX_LOGICALSWITCH}'") | .portgroup' | sed 's/"//g' )
 		PORTGROUP_NAME=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
+		${COMPUTE_DIR}/modify_portgroup.sh ${PORTGROUP_NAME}
+		;;
+	NSX-T)
+		NSX_LOGICALSWITCH="cpod-${NAME_LOWER}"
+		${NETWORK_DIR}/create_logicalswitch.sh ${NSX_TRANSPORTZONE} ${NSX_LOGICALSWITCH}
+		#PORTGROUP_NAME=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${NSX_LOGICALSWITCH}'") | .name' | sed 's/"//g' )
+		PORTGROUP_NAME="${NSX_LOGICALSWITCH}"
 		;;
 	VLAN)
 		PORTGROUP_NAME="cpod-${NAME_LOWER}"
 		VLANID=${TRANSIT_IP}
 		${NETWORK_DIR}/create_vlan_portgroup.sh ${VLANID} ${PORTGROUP_NAME}
+		${COMPUTE_DIR}/modify_portgroup.sh ${PORTGROUP_NAME}
 		;;
 	esac
-
-	${COMPUTE_DIR}/modify_portgroup.sh ${PORTGROUP_NAME}
 }
 
 respool_create() {

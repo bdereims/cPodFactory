@@ -27,6 +27,9 @@ network_delete() {
 	NSX-V)
 		${NETWORK_DIR}/delete_logicalswitch.sh ${1} ${2}
 		;;
+	NSX-T)
+		${NETWORK_DIR}/delete_logicalswitch.sh ${1} ${2}
+		;;
 	VLAN)
 		${NETWORK_DIR}/delete_vlan_portgroup.sh ${2}
 		;;
