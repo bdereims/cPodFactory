@@ -67,6 +67,9 @@ if [ "${VCSA_PLACEMENT}" == "ATSIDE" ]; then
 			PORTGROUP=$( ${NETWORK_DIR}/list_logicalswitch.sh ${NSX_TRANSPORTZONE} | jq 'select(.name == "'${CPOD_NAME_LOWER}'") | .portgroup' | sed 's/"//g' )
 			CPOD_PORTGROUP=$( ${COMPUTE_DIR}/list_portgroup.sh | jq 'select(.network == "'${PORTGROUP}'") | .name' | sed 's/"//g' )
 			;;
+		NSX-T)
+			CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
+			;;
 		VLAN)
 			CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
 			;;

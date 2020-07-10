@@ -20,6 +20,6 @@ case $BACKEND_NETWORK in
 		echo "Deleting '${2}' segment."
 		curl -s -k -u ${NSX_ADMIN}:${NSX_PASSWD} -X DELETE -H "Content-Type: application/json" https://${NSX}/policy/api/v1/infra/segments/${2}/segment-security-profile-binding-maps/segment_security_binding_map_${2} 2>&1 > /dev/null
                 curl -s -k -u ${NSX_ADMIN}:${NSX_PASSWD} -X DELETE -H "Content-Type: application/json" https://${NSX}/policy/api/v1/infra/segments/${2}/segment-discovery-profile-binding-maps/segment_discovery_binding_map_${2} 2>&1 > /dev/null
-                curl -s -k -u ${NSX_ADMIN}:${NSX_PASSWD} -X DELETE -H "Accept: application/json" https://${NSX}/policy/api/v1/infra/segments/${2} 2>&1 > /dev/null
+                curl -s -k -u ${NSX_ADMIN}:${NSX_PASSWD} -X DELETE -H "Accept: application/json" https://${NSX}/policy/api/v1/infra/segments/${2}?force=true 2>&1 > /dev/null
                 ;;
 esac

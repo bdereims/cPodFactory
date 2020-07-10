@@ -64,7 +64,7 @@ export OVA_VROPS=${BITS}/vRealize-Operations-Manager-Appliance-7.0.0.10098133_OV
 
 export HOSTNAME_PHOTONOS=photonos
 export NAME_PHOTONOS=photonos
-export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-9355405.ova
+export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-0a85037c.ova
 
 export HOSTNAME_FORTYTWO=forty-two
 export NAME_FORTYTWO=FORTY-TWO
