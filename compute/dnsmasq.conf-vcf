@@ -1,0 +1,14 @@
+#listen-address=127.0.0.1,###SUBNET###.1,172.22.10.###VLAN###
+interface=lo,eth0,eth1,eth2.1303
+bind-interfaces
+expand-hosts
+bogus-priv
+domain=###CPOD###.###DOMAIN###
+local=/###CPOD###.###DOMAIN###/
+server=/az-rbx.cloud-garage.net/172.22.10.1
+server=172.22.10.1
+no-dhcp-interface=lo,eth1
+dhcp-range=10.###VLAN###.3.10,10.###VLAN###.3.254,255.255.255.0,12h
+dhcp-option=option:router,10.###VLAN###.3.1
+dhcp-option=option:ntp-server,###SUBNET###.1
+dhcp-option=option:domain-search,###CPOD###.###DOMAIN###

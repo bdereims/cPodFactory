@@ -342,7 +342,7 @@
         "networkName": "netName-vlan"
     },
     "vip": "###SUBNET###.10",
-    "vipFqdn": "nsx",
+    "vipFqdn": "nsx.###DOMAIN###",
     "nsxtLicense": "###LIC_NSXT###",
     "transportVlanId": ###VLAN###
   },

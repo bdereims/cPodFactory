@@ -99,6 +99,7 @@ modify_dnsmasq() {
 	#GEN_PASSWORD="$(pwgen -s -1 15 1)!"
 	# VCF needs 12c only
 	GEN_PASSWORD="$(pwgen -s -1 11 1)!"
+	GEN_PASSWORD=${CPODPASSWORD:-$GEN_PASSWORD}
 
 	printf "${2}\tcpod-${1}\t#${OWNER}\t${GEN_PASSWORD}\n" >> ${HOSTS}
 

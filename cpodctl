@@ -16,6 +16,11 @@ show_help() {
 	echo "expose [cpod_name] : expose cpod on Internet as a Public cPod, FWing any connectivity from cPod to Lab"
 	echo "lease [action] (i.e create, delete or debug) [cpod_name] [owner] : create a 15d lease on a cpod"
 	echo "cloudbuilder [cpod_name] [owner] : deplou VCF Cloud Builder OVA at side of ESX"
+	echo ""
+	echo "Env variable could be overriden:"
+	echo "export CPODPASSWORD='mypass'"
+	echo "export VCSA_PLACEMENT=WITHIN or ATSIDE"
+	echo "export TEMPLATE_ESX='template-ESX70'"
 }
 
 list_cpod() {
