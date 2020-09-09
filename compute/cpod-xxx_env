@@ -36,8 +36,6 @@ export NAME_VCSA=VCSA
 export NAME_PSC=PSC
 export IP_VCSA=${SUBNET}.3
 export IP_PSC=${SUBNET}.2
-#export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-6.7.0.40000-14367737_OVF10.ova"}
-#export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-7.0.0.10100-15952498_OVF10.ova"}
 export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-7.0.0.10300-16189094_OVF10.ova"}
 export TARGET_VCSA=${SUBNET}.21
 export DATASTORE_VCSA=Datastore
@@ -66,7 +64,7 @@ export OVA_VROPS=${BITS}/vRealize-Operations-Manager-Appliance-7.0.0.10098133_OV
 
 export HOSTNAME_PHOTONOS=photonos
 export NAME_PHOTONOS=photonos
-export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-9355405.ova
+export OVA_PHOTONOS=${BITS}/photon-hw11-3.0-0a85037c.ova
 
 export HOSTNAME_FORTYTWO=forty-two
 export NAME_FORTYTWO=FORTY-TWO

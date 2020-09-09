@@ -1,0 +1,55 @@
+#!/bin/bash
+#bdereims@vmware.com
+
+# this file is not synced in git
+. ./env.passwd
+
+SLACK=NO
+LEASE=NO
+FORCE=1
+
+# NSX-V | NSX-T | VLAN
+BACKEND_NETWORK=NSX-T
+# Only for VLAN backend
+BACKEND_VDS="pcc-178-32-194-72_DC3594-vrack"
+
+# Some Specs
+SPEC=STC
+
+# Could be ATSIDE of cPodRouter or NESTED, Default is NESTED
+VCSA_PLACEMENT=${VCSA_PLACEMENT:-"ATSIDE"}
+CLOUDBUILDER_PLACEMENT=${CLOUDBUILDER_PLACEMENT:-"ATSIDE"}
+JUMPBOX_PLACEMENT=${JUMPBOX_PLACEMENT:-"ATSIDE"}
+
+ROOT_DOMAIN="az-stc.cloud-garage.net"
+
+# Transit LS for cPodRouter connectivity
+TRANSIT=172.27
+ASN=65500
+
+TRANSIT_NET="172.22"
+DNS="${TRANSIT_NET}.11.1"
+
+CLUSTER="STC"
+HEADER="cPod"
+
+NETWORK_DIR=network
+COMPUTE_DIR=compute
+EXTRA_DIR=extra
+
+NSX=nsx.az-stc.cloud-garage.net
+NSX_ADMIN="admin"
+NSX_TRANSPORTZONE="tz-cpod"
+
+ISO_BANK_SERVER="forty-two.az-stc.cloud-garage.net"
+ISO_BANK_DIR="/data/BITS"
+
+export VCENTER=vcsa.az-stc.cloud-garage.net
+export VCENTER_ADMIN="administrator@az-stc.cloud-garage.net"
+export VCENTER_DATACENTER="STC-DC"
+export VCENTER_CLUSTER="Cluster"
+TEMPLATE_VM="template-cPodRouter"
+TEMPLATE_ESX=${TEMPLATE_ESX:-"template-ESX70"}
+TEMPLATE_FILER="template-cPodFiler"
+export DATASTORE=${DATASTORE:-"w2-hs3-e0507-2-Datastore"}
+export VCENTER_DATASTORE=${DATASTORE}

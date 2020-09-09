@@ -27,6 +27,9 @@ case $WHERE in
 	"172.17.111.169/16")
 		ALL_CLUSTER=(techdata)
 		;;
+	"10.197.107.181/24")
+		ALL_CLUSTER=(stc)
+		;;
 esac
 
 #for CLUSTER in ${ALL_CLUSTER[@]}; do
