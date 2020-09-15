@@ -15,6 +15,7 @@ add_to_cpodrouter_hosts() {
 
 JSON_TEMPLATE=cloudbuilder-401.json
 DNSMASQ_TEMPLATE=dnsmasq.conf-vcf
+BGPD_TEMPLATE=bgpd.conf-vcf
 
 CPOD_NAME=$( echo ${1} | tr '[:lower:]' '[:upper:]' )
 NAME_LOWER=$( echo ${HEADER}-${CPOD_NAME} | tr '[:upper:]' '[:lower:]' )
@@ -27,11 +28,14 @@ PASSWORD=$( ${EXTRA_DIR}/passwd_for_cpod.sh ${CPOD_NAME} )
 SCRIPT_DIR=/tmp/scripts
 SCRIPT=/tmp/scripts/cloudbuilder-${NAME_LOWER}.json
 DNSMASQ=/tmp/scripts/dnsmasq-${NAME_LOWER}.json
+BGPD=/tmp/scripts/bgpd-${NAME_LOWER}.conf
 
 mkdir -p ${SCRIPT_DIR} 
 cp ${COMPUTE_DIR}/${JSON_TEMPLATE} ${SCRIPT} 
 cp ${COMPUTE_DIR}/${DNSMASQ_TEMPLATE} ${DNSMASQ} 
+cp ${COMPUTE_DIR}/${BGPD_TEMPLATE} ${BGPD} 
 
+# Generate JSON for cloudbuilder
 sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###PASSWORD###/${PASSWORD}/" \
 -e "s/###VLAN###/${VLAN}/g" \
@@ -43,6 +47,7 @@ sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###LIC_NSXT###/${LIC_NSXT}/g" \
 ${SCRIPT}
 
+# Generate DNSMASQ conf file
 sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###PASSWORD###/${PASSWORD}/" \
 -e "s/###VLAN###/${VLAN}/g" \
@@ -54,8 +59,15 @@ sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###LIC_NSXT###/${LIC_NSXT}/g" \
 ${DNSMASQ}
 
-echo "Modying dnsmasq on cpodrouter."
+# Generate BGPD conf file
+sed -i -e "s/###VLAN###/${VLAN}/g" \
+${BGPD}
+
+echo "Modifying dnsmasq on cpodrouter."
 scp ${DNSMASQ} ${NAME_LOWER}:/etc/dnsmasq.conf
+
+echo "Modifying bgpd on cpodrouter."
+scp ${BGPD} ${NAME_LOWER}:/etc/quagga/bgpd.conf
 
 echo "Adding entries into hosts of ${NAME_LOWER}."
 add_to_cpodrouter_hosts "${SUBNET}.3" "cloudbuilder"
@@ -69,5 +81,11 @@ add_to_cpodrouter_hosts "${SUBNET}.10" "en02"
 add_to_cpodrouter_hosts "${SUBNET}.11" "sddcmanager"
 	
 ssh -o LogLevel=error ${NAME_LOWER} "systemctl restart dnsmasq"
+ssh -o LogLevel=error ${NAME_LOWER} "systemctl restart bgpd"
 
 echo "JSON is genereated: ${SCRIPT}"
+
+curl -i -k -u admin:${PASSWORD} -H 'Content-Type: application/json' -H 'Accept: application/json' -d @${SCRIPT} -X POST https://cloudbuilder.${NAME_LOWER}.${ROOT_DOMAIN}/v1/sddcs/validations
+
+# Delete a failed deployment
+# curl -X GET http://localhost:9080/bringup-app/bringup/sddcs/test/deleteAll

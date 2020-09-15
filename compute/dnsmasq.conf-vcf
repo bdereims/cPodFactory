@@ -1,5 +1,5 @@
 #listen-address=127.0.0.1,###SUBNET###.1,172.22.10.###VLAN###
-interface=lo,eth0,eth1,eth2.1303
+interface=lo,eth0,eth1,eth2.###VLAN###03
 bind-interfaces
 expand-hosts
 bogus-priv

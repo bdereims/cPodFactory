@@ -34,7 +34,7 @@
       "networkType": "MANAGEMENT",
       "subnet": "###SUBNET###.0/24",
       "gateway": "###SUBNET###.1",
-      "vlanId": "##VLAN###",
+      "vlanId": "###VLAN###",
       "mtu": "1500",
       "portGroupKey": "cl01-vds01-pg-mgmt",
       "standbyUplinks":[],
@@ -84,7 +84,7 @@
     },
     {
       "networkType": "UPLINK02",
-      "subnet": "10..###VLAN###5.0/24",
+      "subnet": "10.###VLAN###.5.0/24",
       "gateway": "10.###VLAN###.5.1",
       "vlanId": "###VLAN###05",
       "mtu": "1500",
@@ -155,8 +155,8 @@
     },
     "vip": "###SUBNET###.5",
     "vipFqdn": "nsx01",
-    "nsxtLicense": "###LIC_NSX###",
-    "transportVlanId": ###VLAN###03,
+    "nsxtLicense": "###LIC_NSXT###",
+    "transportVlanId": "###VLAN###03",
     "nsxtEdgeSpec": {
       "edgeClusterName": "ec01",
       "edgeRootPassword": "###PASSWORD###",
@@ -208,12 +208,12 @@
       "bgpNeighbours": [
         {
           "neighbourIp": "10.###VLAN###.4.1",
-          "autonomousSystem": 655###VLAN###,
+          "autonomousSystem": "655###VLAN###",
           "password": "VMw@re1!"
         },
         {
           "neighbourIp": "10.###VLAN###.5.1",
-          "autonomousSystem": 655###VLAN###,
+          "autonomousSystem": "655###VLAN###",
           "password": "VMw@re1!"
         }
       ]
