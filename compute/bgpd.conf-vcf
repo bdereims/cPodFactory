@@ -11,7 +11,7 @@ enable password VMw@re1!
 !bgp mulitple-instance
 !
 router bgp 655###VLAN###
-network 0.0.0.0/0
+#network 0.0.0.0/0
 bgp router-id 172.22.10.###VLAN###
 neighbor 172.22.10.1 remote-as 65500 
 neighbor 10.###VLAN###.4.2 remote-as 65501

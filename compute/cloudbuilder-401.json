@@ -19,7 +19,7 @@
     },
     "vcenterId": "vcenter-1"
   },
-  "sddcId": "cpod-vcf",
+  "sddcId": "###CPOD###",
   "esxLicense": "###LIC_ESX###",
   "taskName": "workflowconfig/workflowspec-ems.json",
   "ceipEnabled": false,
@@ -363,7 +363,7 @@
       "vcenterId": "vcenter-1",
       "adminUserSsoPassword": "###PASSWORD###",
       "pscSsoSpec": {
-        "ssoDomain": "###CPOD###.###DOMAIN###",
+        "ssoDomain": "vsphere.local",
         "isJoinSsoDomain": false,
         "ssoSiteName": "###CPOD###"
       }

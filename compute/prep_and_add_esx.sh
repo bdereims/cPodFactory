@@ -44,13 +44,15 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 	I=$( expr ${I} - 1 )
 	echo "Configuring ${NAME}..."
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system hostname set --host=${NAME}" 2>&1 > /dev/null
-	#sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "vim-cmd hostsvc/vmotion/vnic_set vmk0" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system settings advanced set -o /Mem/ShareForceSalting -i 0" 2>&1 > /dev/null
-	#sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${CPODROUTER} --share=/data/Datastore --volume-name=nfsDatastore" 2>&1 > /dev/null
-	#sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=BITS -r" 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli system settings advanced set -o /UserVars/SuppressCoredumpWarning -i 1" 2>&1 > /dev/null
+	if [ "${NOCUSTO}" != "YES" ]; then
+		sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "vim-cmd hostsvc/vmotion/vnic_set vmk0" 2>&1 > /dev/null
+		sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${CPODROUTER} --share=/data/Datastore --volume-name=nfsDatastore" 2>&1 > /dev/null
+		sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli storage nfs add --host=${ISO_BANK_SERVER} --share=${ISO_BANK_DIR} --volume-name=BITS -r" 2>&1 > /dev/null
+		sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"server ${CPODROUTER}\" >> /etc/ntp.conf ; chkconfig ntpd on ; /etc/init.d/ntpd start" 2>&1 > /dev/null
+	fi
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"nameserver ${CPODROUTER}\" > /etc/resolv.conf ; echo \"search ${DOMAIN}\" >> /etc/resolv.conf" 2>&1 > /dev/null
-	#sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "echo \"server ${CPODROUTER}\" >> /etc/ntp.conf ; chkconfig ntpd on ; /etc/init.d/ntpd start" 2>&1 > /dev/null
 	
 	sshpass -p ${PASSWORD} scp -o StrictHostKeyChecking=no /root/update/ssd_esx_tag.sh root@${IP}:/tmp/ssd_esx_tag.sh 2>&1 > /dev/null
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "/tmp/ssd_esx_tag.sh" 2>&1 > /dev/null
