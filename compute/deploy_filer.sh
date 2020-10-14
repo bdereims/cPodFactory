@@ -37,4 +37,5 @@ ${SCRIPT}
 echo "Cloning cPodFiler VM to '${HEADER}-${1}'."
 docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v /tmp/scripts:/tmp/scripts vmware/powerclicore:ubuntu16.04 ${SCRIPT} 2>&1 > /dev/null
 
-rm -fr ${SCRIPT}
+#rm -fr ${SCRIPT}
+echo ${SCRIPT}

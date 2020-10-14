@@ -85,7 +85,8 @@ ssh -o LogLevel=error ${NAME_LOWER} "systemctl restart bgpd"
 
 echo "JSON is genereated: ${SCRIPT}"
 
-curl -i -k -u admin:${PASSWORD} -H 'Content-Type: application/json' -H 'Accept: application/json' -d @${SCRIPT} -X POST https://cloudbuilder.${NAME_LOWER}.${ROOT_DOMAIN}/v1/sddcs/validations
+#curl -i -k -u admin:${PASSWORD} -H 'Content-Type: application/json' -H 'Accept: application/json' -d @${SCRIPT} -X POST https://cloudbuilder.${NAME_LOWER}.${ROOT_DOMAIN}/v1/sddcs/validations
+curl -i -k -u admin:${PASSWORD} -H 'Content-Type: application/json' -H 'Accept: application/json' -d @${SCRIPT} -X POST https://cloudbuilder.${NAME_LOWER}.${ROOT_DOMAIN}/v1/sddcs
 
 # Delete a failed deployment
 # curl -X GET http://localhost:9080/bringup-app/bringup/sddcs/test/deleteAll

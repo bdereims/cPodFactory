@@ -21,7 +21,8 @@ Connect-VIServer -Server $Vc -User $vcUser -Password $vcPass
 
 #####
 
-$Vapp = Get-Vapp cPod-$cPodName
+#$Vapp = Get-Vapp cPod-$cPodName
+$Vapp = Get-ResourcePool -Name cPod-$cPodName
 
 Write-Host "Add cPodFiler VM."
 $CpodFiler = New-VM -Name cPod-$cPodName-cpodfiler -VM $templateFILER -ResourcePool $Vapp -Datastore $Datastore
@@ -32,11 +33,12 @@ $CpodFiler | New-HardDisk -StorageFormat Thin -CapacityKB 5000000000
 Write-Host "Modify cPodFiler vNIC."
 Get-NetworkAdapter -VM $CpodFiler | Where {$_.NetworkName -eq $oldNet } | Set-NetworkAdapter -Portgroup ( Get-VDPortGroup -Name $Portgroup ) -Confirm:$false
 Start-VM -VM $CpodFiler -Confirm:$false 
+Start-Sleep -s 5
 
 Write-Host "Launch Update script in the cPod context."
 $CpodFiler = Get-VM -name cPod-$cPodName-cpodfiler 
 
-Invoke-VMScript -VM $CpodFiler -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $genPASSWD ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 45 -RunAsync 
+Invoke-VMScript -VM $CpodFiler -ScriptText "cd update ; ./update.sh $cPodName $IP $rootDomain $genPASSWD ; sync ; reboot" -GuestUser root -GuestPassword $rootPasswd -scripttype Bash -ToolsWaitSecs 15 -RunAsync 
 
 Start-Sleep -Seconds 15 
 Restart-VM -VM $CpodFiler -Confirm:$false -RunAsync
