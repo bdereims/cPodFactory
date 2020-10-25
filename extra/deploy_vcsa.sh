@@ -79,6 +79,7 @@ if [ "${VCSA_PLACEMENT}" == "ATSIDE" ]; then
 	export LANG=en_US.UTF-8
 	cd /root/cPodFactory/ovftool
 	./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
+	--overwrite \
 	--sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
 	--X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
 	--name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
@@ -100,6 +101,7 @@ else
 	export LANG=en_US.UTF-8
 	cd /root/cPodFactory/ovftool
 	./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
+	--overwrite \
 	--sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
 	--X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
 	--name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \

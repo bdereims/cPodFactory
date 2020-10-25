@@ -19,7 +19,7 @@ case $WHERE in
 		ALL_CLUSTER=(dell)
 		;;
 	"172.16.100.20/22")
-		ALL_CLUSTER=(intel)
+		ALL_CLUSTER=(fkd)
 		;;
 	"164.132.217.50/28")
 		ALL_CLUSTER=(ovh)

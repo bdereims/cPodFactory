@@ -87,6 +87,7 @@ network_create() {
 	VLAN)
 		PORTGROUP_NAME="cpod-${NAME_LOWER}"
 		VLANID=${TRANSIT_IP}
+		VLANID=$( expr ${BACKEND_VLAN_OFFSET} + ${TRANSIT_IP} )
 		${NETWORK_DIR}/create_vlan_portgroup.sh ${VLANID} ${PORTGROUP_NAME}
 		${COMPUTE_DIR}/modify_portgroup.sh ${PORTGROUP_NAME}
 		;;

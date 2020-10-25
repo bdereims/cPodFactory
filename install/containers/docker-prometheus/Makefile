@@ -6,10 +6,11 @@ build: Dockerfile
 	docker build -t $(IMAGE_NAME) .
 
 start:
-	docker run -d -p 9091:9090 --dns 172.16.100.50 \
+	docker run -d -p 9090:9090 --dns 10.1.0.150 \
 	-v ${VOLUME}:/prometheus-data \
 	--name ${CONTAINER_NAME} \
-	${IMAGE_NAME} --config.file=/prometheus-data/prometheus.yml
+	${IMAGE_NAME} 
+	#${IMAGE_NAME} --config.file=/prometheus-data/prometheus.yml
 
 stop:
 	docker stop $(CONTAINER_NAME) 

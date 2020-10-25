@@ -8,7 +8,7 @@
     },
     "ipAddress": "###SUBNET###.11",
     "netmask": "255.255.255.0",
-    "hostname": "sddcmanager",
+    "hostname": "sddc",
     "rootUserCredentials": {
       "username": "root",
       "password": "###PASSWORD###"
@@ -34,7 +34,7 @@
       "networkType": "MANAGEMENT",
       "subnet": "###SUBNET###.0/24",
       "gateway": "###SUBNET###.1",
-      "vlanId": "###VLAN###",
+      "vlanId": "###VLAN_MGMT###",
       "mtu": "1500",
       "portGroupKey": "cl01-vds01-pg-mgmt",
       "standbyUplinks":[],
@@ -168,7 +168,7 @@
         "tier1GatewayName" : "ec01-t1-gw01"
       },
       "tier0ServicesHighAvailability": "ACTIVE_ACTIVE",
-      "asn": 65501,
+      "asn": 65101,
       "edgeNodeSpecs": [
         {
           "edgeNodeName": "en01",
@@ -208,12 +208,12 @@
       "bgpNeighbours": [
         {
           "neighbourIp": "10.###VLAN###.4.1",
-          "autonomousSystem": "655###VLAN###",
+          "autonomousSystem": "651###VLAN###",
           "password": "VMw@re1!"
         },
         {
           "neighbourIp": "10.###VLAN###.5.1",
-          "autonomousSystem": "655###VLAN###",
+          "autonomousSystem": "651###VLAN###",
           "password": "VMw@re1!"
         }
       ]

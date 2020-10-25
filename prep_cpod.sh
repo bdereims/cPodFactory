@@ -22,6 +22,7 @@ main() {
 	-e "s/###ISO_BANK_SERVER###/${ISO_BANK_SERVER}/" \
 	-e "s!###ISO_BANK_DIR###!${ISO_BANK_DIR}!" \
 	-e "s/###NUM_ESX###/${2}/" \
+	-e "s/###NOCUSTO###/${NOCUSTO}/" \
 	${SCRIPT}
 
 	CPOD_NAME="cpod-$1"

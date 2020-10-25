@@ -10,17 +10,17 @@ enable password VMw@re1!
 !
 !bgp mulitple-instance
 !
-router bgp 655###VLAN###
-#network 0.0.0.0/0
-bgp router-id 172.22.10.###VLAN###
-neighbor 172.22.10.1 remote-as 65500 
-neighbor 10.###VLAN###.4.2 remote-as 65501
+router bgp 651###VLAN###
+network 0.0.0.0/0
+bgp router-id 172.16.1.###VLAN###
+neighbor 172.16.1.1 remote-as 65100 
+neighbor 10.###VLAN###.4.2 remote-as 65101
 neighbor 10.###VLAN###.4.2 default-originate
-neighbor 10.###VLAN###.4.3 remote-as 65501
+neighbor 10.###VLAN###.4.3 remote-as 65101
 neighbor 10.###VLAN###.4.3 default-originate
-neighbor 10.###VLAN###.5.2 remote-as 65501
+neighbor 10.###VLAN###.5.2 remote-as 65101
 neighbor 10.###VLAN###.5.2 default-originate
-neighbor 10.###VLAN###.5.3 remote-as 65501
+neighbor 10.###VLAN###.5.3 remote-as 65101
 neighbor 10.###VLAN###.5.3 default-originate
 !neighbor 172.16.66.10 default-originate 
 !redistribute kernel

@@ -6,7 +6,7 @@ build: Dockerfile
 	docker build -t $(IMAGE_NAME) .
 
 start:
-	docker run -d --dns 172.16.100.50 \
+	docker run -d --dns 10.1.0.150 \
 	--net="host" \
 	--pid="host" \
 	-v "/:/host:ro,rslave" \

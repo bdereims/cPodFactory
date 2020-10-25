@@ -9,6 +9,7 @@ GEN_PASSWORD="###GEN_PASSWD###"
 ISO_BANK_SERVER="###ISO_BANK_SERVER###"
 ISO_BANK_DIR="###ISO_BANK_DIR###"
 NUM_ESX="###NUM_ESX###"
+NOCUSTO="###NOCUSTO###"
 DOMAIN=$( grep "domain=" /etc/dnsmasq.conf | sed "s/domain=//" )
 
 [ "$( hostname )" == "mgmt-cpodrouter" ] && exit 1

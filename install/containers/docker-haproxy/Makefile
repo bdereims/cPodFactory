@@ -9,7 +9,6 @@ build: Dockerfile
 start:
 	docker run -d \
 	--net=host \
-	--restart=always \
 	--name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 stop:
@@ -23,4 +22,3 @@ clean:
 clean-volume:
 	rm -fr $(VOLUME)/{*,.??*}
 
-all: stop clean build start
