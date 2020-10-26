@@ -125,7 +125,7 @@
   ],
   "nsxtSpec":
   {
-    "nsxtManagerSize": "medium",
+    "nsxtManagerSize": "small",
     "nsxtManagers": [
       {
           "hostname": "nsx01a",

@@ -92,6 +92,8 @@ ssh -o LogLevel=error ${NAME_LOWER} "systemctl restart bgpd"
 
 echo "JSON is genereated: ${SCRIPT}"
 
+exit 0
+
 echo ""
 echo "Hit enter or ctrl-c to launch prereqs validation:"
 read answer
