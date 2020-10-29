@@ -17,15 +17,19 @@ neighbor 172.16.1.1 remote-as 65100
 neighbor 10.###VLAN###.4.2 remote-as 65101
 neighbor 10.###VLAN###.4.2 default-originate
 neighbor 10.###VLAN###.4.2 password VMw@re1! 
+neighbor 10.###VLAN###.4.2 update-source 10.###VLAN###.4.1 
 neighbor 10.###VLAN###.4.3 remote-as 65101
 neighbor 10.###VLAN###.4.3 default-originate
 neighbor 10.###VLAN###.4.3 password VMw@re1! 
+neighbor 10.###VLAN###.4.3 update-source 10.###VLAN###.4.1
 neighbor 10.###VLAN###.5.2 remote-as 65101
 neighbor 10.###VLAN###.5.2 default-originate
 neighbor 10.###VLAN###.5.2 password VMw@re1! 
+neighbor 10.###VLAN###.5.2 update-source 10.###VLAN###.5.1
 neighbor 10.###VLAN###.5.3 remote-as 65101
 neighbor 10.###VLAN###.5.3 default-originate
 neighbor 10.###VLAN###.5.3 password VMw@re1! 
+neighbor 10.###VLAN###.5.3 update-source 10.###VLAN###.5.1
 !neighbor 172.16.66.10 default-originate 
 !redistribute kernel
 !redistribute static

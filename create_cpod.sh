@@ -103,6 +103,11 @@ respool_create() {
 modify_dnsmasq() {
 	echo "Modifying '${DNSMASQ}' and '${HOSTS}'."
 	echo "server=/cpod-${1}.${ROOT_DOMAIN}/${2}" >> ${DNSMASQ}
+
+	# Add SRV entry for dns service discovery for prometheus
+	SERVICEDISCOVERY="srv-host=_aserv._tcp,${2},9100"
+	echo "${SERVICEDISCOVERY}" >> ${DNSMASQ}
+
 	#GEN_PASSWORD="$(pwgen -s -1 15 1)!"
 	# VCF needs 12c only
 	GEN_PASSWORD="$(pwgen -s -1 11 1)!"
@@ -179,6 +184,10 @@ main() {
 	./cpod_lease.sh create ${1} ${OWNER}
 
 	echo "=== Creation is finished."
+
+	#echo "=== Update cPodRouter."
+	#./install/update-node-exporter-cpodrouters.sh ${NEXT_IP}
+
 	END=$( date +%s )
 	TIME=$( expr ${END} - ${START} )
 	echo "In ${TIME} Seconds."
