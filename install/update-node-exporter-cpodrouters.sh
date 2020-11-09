@@ -23,5 +23,5 @@ for CPODROUTER in $( sed -n "/\tcpod-/p" /etc/hosts | cut -f1 | sort ); do
 	#ssh ${CPODROUTER} "rm -fr /var/lib/docker"
 	#ssh ${CPODROUTER} "rm -fr /root/docker-*"
 	#ssh ${CPODROUTER} "ip link delete link dev docker0"
-	ssh ${CPODROUTER} "journalctl --rotate ; journalctl --vacuum-time=2h"
+	ssh ${CPODROUTER} "journalctl --rotate --vacuum-size=50M"
 done

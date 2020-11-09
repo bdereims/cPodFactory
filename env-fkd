@@ -53,5 +53,5 @@ export VCENTER_CLUSTER="Cluster"
 TEMPLATE_VM="template-cPodRouter"
 TEMPLATE_ESX=${TEMPLATE_ESX:-"template-ESX70U1"}
 TEMPLATE_FILER="template-cPodFiler"
-export DATASTORE=${DATASTORE:-"vsan01"}
+export DATASTORE=${DATASTORE:-"vsan-intel-datastore"}
 export VCENTER_DATASTORE=${DATASTORE}

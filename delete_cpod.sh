@@ -42,9 +42,9 @@ respool_delete() {
 
 modify_dnsmasq() {
 	echo "Modifying '${DNSMASQ}' and '${HOSTS}'."
+	IPTRANSIT=$( ${COMPUTE_DIR}/cpod_ip.sh ${1} ontransit )
 	sed -i "/${1}\./d" ${DNSMASQ} 
-	SERVICEDISCOVERY="srv-host=_aserv._tcp,${1},9100"
-        sed -i "/${SERVICEDISCOVERY}/d" ${DNSMASQ}
+	sed -i "/srv-host=_aserv._tcp,${IPTRANSIT},9100/d" ${DNSMASQ} 
 	sed -i "/\t${1}\t/d" ${HOSTS} 
 
 	systemctl stop dnsmasq 
