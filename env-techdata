@@ -9,13 +9,14 @@ LEASE=NO
 FORCE=1
 
 # NSX-V | NSX-T | VLAN
-BACKEND_NETWORK=NSX-V
+BACKEND_NETWORK="NSX-T"
 # Only for VLAN backend
-BACKEND_VDS="pcc-178-32-194-72_DC3594-vrack"
+BACKEND_VDS="DSwitch"
 
 # Some Specs
 SPEC=TECHDATA
-# VCSA could be ATSIDE of cPodRouter or NESTED, Default is NESTED
+
+# Could be ATSIDE of cPodRouter or NESTED, Default is NESTED
 VCSA_PLACEMENT=${VCSA_PLACEMENT:-"ATSIDE"}
 CLOUDBUILDER_PLACEMENT=${CLOUDBUILDER_PLACEMENT:-"ATSIDE"}
 JUMPBOX_PLACEMENT=${JUMPBOX_PLACEMENT:-"ATSIDE"}
@@ -27,30 +28,29 @@ TRANSIT=172.25
 ASN=65500
 
 TRANSIT_NET="172.24"
-#DNS="${TRANSIT_NET}.10.1"
-DNS="172.17.111.170"
+DNS="10.1.1.1"
 
-CLUSTER="TECHDATA"
+CLUSTER="CLB"
 HEADER="cPod"
 
 NETWORK_DIR=network
 COMPUTE_DIR=compute
 EXTRA_DIR=extra
 
-NSX=nsxtmgnt.vmware.lab
+NSX=nsxmgnt.az-clb.cloud-garage.net
 NSX_ADMIN="admin"
-NSX_TRANSPORTZONE="TransportZone"
+NSX_TRANSPORTZONE="overlay-tz"
+NSX_TRANSPORTZONE_ID="64c994a1-156a-4fc6-ae2f-fa7a375bf6a4"
 
-ISO_BANK_SERVER="172.17.111.18"
-ISO_BANK_DIR="/unityshare1/data/BITS"
+ISO_BANK_SERVER="172.24.10.1"
+ISO_BANK_DIR="/data/BITS"
 
-export VCENTER="vcsaaf.vmware.lab"
+export VCENTER=vcsa.az-clb.cloud-garage.net
 export VCENTER_ADMIN="administrator@vsphere.local"
-export VCENTER_DATACENTER="TD-Colombes"
-export VCENTER_CLUSTER="vSAN-AF01"
+export VCENTER_DATACENTER="Datacenter"
+export VCENTER_CLUSTER="Cluster"
 TEMPLATE_VM="template-cPodRouter"
-#TEMPLATE_ESX=${TEMPLATE_ESX:-"template-ESX70-15843807"}
-TEMPLATE_ESX=${TEMPLATE_ESX:-"template-ESX70-VCF4"}
+TEMPLATE_ESX=${TEMPLATE_ESX:-"template-ESX70"}
 TEMPLATE_FILER="template-cPodFiler"
-export DATASTORE=${DATASTORE:-"vSAN-AF01"}
+export DATASTORE=${DATASTORE:-"vsanDatastore"}
 export VCENTER_DATASTORE=${DATASTORE}
