@@ -64,6 +64,8 @@ for ESX in $( cat ${DHCP_LEASE} | cut -f 2,3 -d' ' | sed 's/\ /,/' ); do
 
 	sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "printf \"${GEN_PASSWORD}\n${GEN_PASSWORD}\n\" | passwd root 2>&1 > /dev/null" 2>&1 > /dev/null
 	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP} "esxcli network ip interface ipv4 set -i vmk0 -I ${NEWIP} -N 255.255.255.0 -t static ; esxcli network ip interface set -e false -i vmk0 ; esxcli network ip interface set -e true -i vmk0" 2>&1 > /dev/null
+
+	sshpass -p ${GEN_PASSWORD} ssh -o StrictHostKeyChecking=no root@${NEWIP} "/sbin/generate-certificates ; /etc/init.d/hostd restart && /etc/init.d/vpxa restart" 2>&1 > /dev/null
 done
 
 # Create entry for VCSA

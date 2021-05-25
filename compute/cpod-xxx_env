@@ -70,6 +70,10 @@ export HOSTNAME_FORTYTWO=forty-two
 export NAME_FORTYTWO=FORTY-TWO
 export OVA_FORTYTWO=${BITS}/template-FORTY-TWO.ova
 
+export HOSTNAME_GREASEMONKEY=grease-monkey
+export NAME_GREASEMONKEY=GREASE-MONKEY
+export OVA_GREASEMONKEY=${BITS}/template-GREASE-MONKEY.ova
+
 export HOSTNAME_UBUNTU=ubuntu
 export NAME_UBUNTU=Ubuntu
 export OVA_UBUNTU=${BITS}/ubuntu.ova
@@ -116,5 +120,5 @@ export OVA_RIFT=${BITS}/template-RIFT.ova
 
 export HOSTNAME_CLOUDBUILDER=cloudbuilder
 export NAME_CLOUDBUILDER=CLOUDBUILDER
-export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.1.0.0-16961769_OVF10.ova
+export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.2.0.0-17559673_OVF10.ova
 export IP_CLOUDBUILDER=${SUBNET}.3

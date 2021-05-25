@@ -68,6 +68,7 @@ if [ "${VCSA_PLACEMENT}" == "ATSIDE" ]; then
 		NSX-T)
 			CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
 			echo ">>> ${CPOD_PORTGROUP}"
+			read a
 			;;
 		VLAN)
 			CPOD_PORTGROUP="${CPOD_NAME_LOWER}"
@@ -101,24 +102,16 @@ else
 	./ovftool --acceptAllEulas --X:injectOvfEnv --allowExtraConfig --X:enableHiddenProperties \
 	--sourceType=OVA --allowExtraConfig --acceptAllEulas --X:injectOvfEnv --skipManifestCheck \
 	--X:waitForIp --X:logFile=/tmp/ovftool.log --X:logLevel=verbose --X:logTransferHeaderData \
-	--name=${NAME} --datastore=${DATASTORE} --powerOn --noSSLVerify \
-	--diskMode=thin --net:"Network 1"="VM Network" \
-	--prop:guestinfo.cis.appliance.net.addr.family="ipv4" \
-	--prop:guestinfo.cis.appliance.net.mode="statis" \
-	--prop:guestinfo.cis.appliance.net.addr="${IP}" \
-	--prop:guestinfo.cis.appliance.net.prefix="24" \
-	--prop:guestinfo.cis.appliance.net.gateway="${GATEWAY}" \ 
-	--prop:guestinfo.cis.appliance.net.dns.servers="${DNS}" \
-	--prop:guestinfo.cis.appliance.net.pnid="${HOSTNAME}.${DOMAIN}" \
-	--prop:guestinfo.cis.vmdir.password="${PASSWORD}" \
-	--prop:guestinfo.cis.appliance.root.passwd="${PASSWORD}" \
-	--prop:guestinfo.cis.vpxd.ha.management.addr="${HOSTNAME}.${DOMAIN}" \
-	--prop:guestinfo.cis.vpxd.ha.management.port="443" \
-	--prop:guestinfo.cis.vpxd.ha.management.user="root" \
-	--prop:guestinfo.cis.vpxd.ha.management.password="${PASSWORD}" \
-	--prop:guestinfo.cis.ceip_enabled=False \
-	--prop:domain="${HOSTNAME}.${DOMAIN}" \
-	--prop:searchpath="${DOMAIN}" \
+	--name=${NAME} --datastore=${DATASTORE} --prop:guestinfo.cis.deployment.autoconfig=True \
+	--powerOn --noSSLVerify --prop:guestinfo.cis.deployment.node.type=embedded --deploymentOption=tiny \
+	--diskMode=thin --net:"Network 1"="VM Network" --prop:guestinfo.cis.appliance.net.prefix=24 \
+	--prop:guestinfo.cis.system.vm0.port=443 --prop:guestinfo.cis.appliance.net.gateway=${GATEWAY} \
+	--prop:guestinfo.cis.appliance.root.passwd=${PASSWORD} --prop:guestinfo.cis.appliance.net.dns.servers=${DNS} \
+	--prop:guestinfo.cis.appliance.net.mode=static --prop:guestinfo.cis.vmdir.domain-name=${AUTH_DOMAIN} \
+	--prop:guestinfo.cis.ceip_enabled=False --prop:guestinfo.cis.appliance.ssh.enabled=True \
+	--prop:guestinfo.cis.appliance.net.addr.family=ipv4 --prop:guestinfo.cis.appliance.ntp.servers=${NTP} \
+	--prop:guestinfo.cis.appliance.net.pnid=${HOSTNAME}.${DOMAIN} --prop:guestinfo.cis.vmdir.first-instance=True \
+	--prop:guestinfo.cis.appliance.net.addr=${IP} --prop:guestinfo.cis.vmdir.password=${PASSWORD} ${OVA} \
 	vi://root:${PASSWORD}@${SUBNET}.21:443
 EOF
 

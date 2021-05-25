@@ -1,6 +1,9 @@
 #!/bin/bash
 #bdereims@vmware.com
 
+#for squid proxy on cPodRouter
+#docker run -d -p 3128:3128 --dns=172.16.1.1 b4tman/squid
+
 . ./env
 
 [ "${1}" == ""  -o "${2}" == "" ] && echo "usage: ${0} CPOD-NAME enable|disable" && exit 1
