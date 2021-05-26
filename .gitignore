@@ -25,3 +25,4 @@ ipsec.secrets*
 install/containers/docker-strongswan/config/ipsec.d/*
 install/containers/docker-strongswan/config/ipsec.secrets
 cloudbuilder.json
+*.ova
