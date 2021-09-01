@@ -4,8 +4,8 @@ expand-hosts
 bogus-priv
 domain=###CPOD###.###DOMAIN###
 local=/###CPOD###.###DOMAIN###/
-server=/az-fkd.cloud-garage.net/172.16.1.1
-server=172.16.1.1
+server=/###ROOT_DOMAIN###/###TRANSIT_GW###
+server=###TRANSIT_GW###
 no-dhcp-interface=lo,eth1
 dhcp-range=10.###VLAN###.3.10,10.###VLAN###.3.254,255.255.255.0,12h
 dhcp-option=option:router,10.###VLAN###.3.1

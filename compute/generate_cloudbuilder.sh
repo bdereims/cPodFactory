@@ -64,6 +64,8 @@ sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###LIC_VCSA###/${LIC_VCSA}/g" \
 -e "s/###LIC_VSAN###/${LIC_VSAN}/g" \
 -e "s/###LIC_NSXT###/${LIC_NSXT}/g" \
+-e "s/###ROOT_DOMAIN###/${ROOT_DOMAIN}/g" \
+-e "s/###TRANSIT_GW###/${TRANSIT_GW}/g" \
 ${DNSMASQ}
 
 # Generate BGPD conf file
