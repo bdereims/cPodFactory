@@ -27,9 +27,12 @@ case $WHERE in
 	"10.1.1.253/24")
 		ALL_CLUSTER=(techdata)
 		;;
+	"192.168.10.250/24")
+		ALL_CLUSTER=(dxb)
+		;;
 esac
 
-ALL_CLUSTER=(techdata)
+#ALL_CLUSTER=(techdata)
 
 #for CLUSTER in ${ALL_CLUSTER[@]}; do
 #        RESULT=$( ./extra/check_datastore.sh ${CLUSTER} )

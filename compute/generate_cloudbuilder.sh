@@ -68,6 +68,10 @@ ${DNSMASQ}
 
 # Generate BGPD conf file
 sed -i -e "s/###VLAN###/${VLAN}/g" \
+-e "s/###ASN###/${ASN}/g" \
+-e "s/###HEADER_ASN###/${HEADER_ASN}/g" \
+-e "s/###TRANSIT_GW###/${TRANSIT_GW}/g" \
+-e "s/###TRANSIT_SUBNET###/${TRANSIT_SUBNET}/g" \
 ${BGPD}
 
 echo "Modifying dnsmasq on cpodrouter."
