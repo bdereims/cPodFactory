@@ -36,7 +36,7 @@ export NAME_VCSA=VCSA
 export NAME_PSC=PSC
 export IP_VCSA=${SUBNET}.3
 export IP_PSC=${SUBNET}.2
-export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-7.0.2.00100-17920168_OVF10.ova"}
+export OVA_VCSA=${OVA_VCSA:-"${BITS}/VMware-vCenter-Server-Appliance-7.0.2.00400-18356314_OVF10.ova"}
 export TARGET_VCSA=${SUBNET}.21
 export DATASTORE_VCSA=Datastore
 export PORTGROUP_VCSA="VM Network"
@@ -120,5 +120,6 @@ export OVA_RIFT=${BITS}/template-RIFT.ova
 
 export HOSTNAME_CLOUDBUILDER=cloudbuilder
 export NAME_CLOUDBUILDER=CLOUDBUILDER
-export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.2.1.0-18016307_OVF10.ova
+#export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.2.0.0-17559673_OVF10.ova
+export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.3.0.0-18433963_OVF10.ova
 export IP_CLOUDBUILDER=${SUBNET}.3

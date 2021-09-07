@@ -45,13 +45,13 @@
     },
     {
       "networkType": "VMOTION",
-      "subnet": "10.###VLAN_SHIFT###.1.0/24",
-      "gateway": "10.###VLAN_SHIFT###.1.1",
+      "subnet": "10.###VLAN###.1.0/24",
+      "gateway": "10.###VLAN###.1.1",
       "vlanId": "###VLAN###01",
       "mtu": "1500",
       "portGroupKey": "cl01-vds01-pg-vmotion",
       "association": "dc01",
-      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN_SHIFT###.1.254", "startIpAddress": "10.###VLAN_SHIFT###.1.2"}],
+      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN###.1.254", "startIpAddress": "10.###VLAN###.1.2"}],
       "standbyUplinks":[],
       "activeUplinks":[
         "uplink1",
@@ -60,12 +60,12 @@
     },
     {
       "networkType": "VSAN",
-      "subnet": "10.###VLAN_SHIFT###.2.0/24",
-      "gateway": "10.###VLAN_SHIFT###.2.1",
+      "subnet": "10.###VLAN###.2.0/24",
+      "gateway": "10.###VLAN###.2.1",
       "vlanId": "###VLAN###02",
       "mtu": "1500",
       "portGroupKey": "cl01-vds01-pg-vsan",
-      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN_SHIFT###.2.254", "startIpAddress": "10.###VLAN_SHIFT###.2.2"}],
+      "includeIpAddressRanges": [{"endIpAddress": "10.###VLAN###.2.254", "startIpAddress": "10.###VLAN###.2.2"}],
       "standbyUplinks":[],
       "activeUplinks":[
         "uplink1",
@@ -74,8 +74,8 @@
     },
     {
       "networkType": "UPLINK01",
-      "subnet": "10.###VLAN_SHIFT###.4.0/24",
-      "gateway": "10.###VLAN_SHIFT###.4.1",
+      "subnet": "10.###VLAN###.4.0/24",
+      "gateway": "10.###VLAN###.4.1",
       "vlanId": "###VLAN###04",
       "mtu": "1500",
       "portGroupKey": "cl01-vds01-pg-uplink01",
@@ -84,8 +84,8 @@
     },
     {
       "networkType": "UPLINK02",
-      "subnet": "10.###VLAN_SHIFT###.5.0/24",
-      "gateway": "10.###VLAN_SHIFT###.5.1",
+      "subnet": "10.###VLAN###.5.0/24",
+      "gateway": "10.###VLAN###.5.1",
       "vlanId": "###VLAN###05",
       "mtu": "1500",
       "portGroupKey": "cl01-vds01-pg-uplink02",
@@ -94,8 +94,8 @@
     },
     {
       "networkType": "NSXT_EDGE_TEP",
-      "subnet": "10.###VLAN_SHIFT###.6.0/24",
-      "gateway": "10.###VLAN_SHIFT###.6.1",
+      "subnet": "10.###VLAN###.6.0/24",
+      "gateway": "10.###VLAN###.6.1",
       "vlanId": "###VLAN###06",
       "mtu": "1600",
       "portGroupKey": "",
@@ -108,16 +108,16 @@
     },
     {
       "networkType": "X_REGION",
-      "subnet": "10.###VLAN_SHIFT###.201.0/24",
-      "gateway": "10.###VLAN_SHIFT###.201.1",
+      "subnet": "10.###VLAN###.201.0/24",
+      "gateway": "10.###VLAN###.201.1",
       "mtu": "1600",
       "association": "dc01",
       "vlanId": "0" 
     },
     {
       "networkType": "REGION_SPECIFIC",
-      "subnet": "10.###VLAN_SHIFT###.200.0/24",
-      "gateway": "10.###VLAN_SHIFT###.200.1",
+      "subnet": "10.###VLAN###.200.0/24",
+      "gateway": "10.###VLAN###.200.1",
       "mtu": "1600",
       "association": "dc01",
       "vlanId": "0" 
@@ -168,22 +168,22 @@
         "tier1GatewayName" : "ec01-t1-gw01"
       },
       "tier0ServicesHighAvailability": "ACTIVE_ACTIVE",
-      "asn": 65501,
+      "asn": 65101,
       "edgeNodeSpecs": [
         {
           "edgeNodeName": "en01",
           "edgeNodeHostname": "en01.###CPOD###.###DOMAIN###",
           "managementCidr": "###SUBNET###.9/24",
-          "edgeVtep1Cidr": "10.###VLAN_SHIFT###.6.2/24",
-          "edgeVtep2Cidr": "10.###VLAN_SHIFT###.6.3/24",
+          "edgeVtep1Cidr": "10.###VLAN###.6.2/24",
+          "edgeVtep2Cidr": "10.###VLAN###.6.3/24",
           "interfaces": [
             {
               "name": "uplink-edge1-tor1",
-              "interfaceCidr": "10.###VLAN_SHIFT###.4.2/24"
+              "interfaceCidr": "10.###VLAN###.4.2/24"
             },
             {
               "name": "uplink-edge1-tor2",
-              "interfaceCidr": "10.###VLAN_SHIFT###.5.2/24"
+              "interfaceCidr": "10.###VLAN###.5.2/24"
             }
           ]
         },
@@ -191,29 +191,29 @@
           "edgeNodeName": "en02",
           "edgeNodeHostname": "en02.###CPOD###.###DOMAIN###",
           "managementCidr": "###SUBNET###.10/24",
-          "edgeVtep1Cidr": "10.###VLAN_SHIFT###.6.4/24",
-          "edgeVtep2Cidr": "10.###VLAN_SHIFT###.6.5/24",
+          "edgeVtep1Cidr": "10.###VLAN###.6.4/24",
+          "edgeVtep2Cidr": "10.###VLAN###.6.5/24",
           "interfaces": [
             {
               "name": "uplink-edge2-tor1",
-              "interfaceCidr": "10.###VLAN_SHIFT###.4.3/24"
+              "interfaceCidr": "10.###VLAN###.4.3/24"
             },
             {
               "name": "uplink-edge2-tor2",
-              "interfaceCidr": "10.###VLAN_SHIFT###.5.3/24"
+              "interfaceCidr": "10.###VLAN###.5.3/24"
             }
           ]
         }
       ],
       "bgpNeighbours": [
         {
-          "neighbourIp": "10.###VLAN_SHIFT###.4.1",
-          "autonomousSystem": "655###VLAN###",
+          "neighbourIp": "10.###VLAN###.4.1",
+          "autonomousSystem": "651###VLAN###",
           "password": "VMw@re1!"
         },
         {
-          "neighbourIp": "10.###VLAN_SHIFT###.5.1",
-          "autonomousSystem": "655###VLAN###",
+          "neighbourIp": "10.###VLAN###.5.1",
+          "autonomousSystem": "651###VLAN###",
           "password": "VMw@re1!"
         }
       ]
