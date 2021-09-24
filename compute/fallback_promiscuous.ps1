@@ -3,7 +3,7 @@
 
 $Vc = "###VCENTER###"
 $vcUser = "###VCENTER_ADMIN###"
-$vcPass = "###VCENTER_PASSWD###"
+$vcPass = '###VCENTER_PASSWD###'
 $Datacenter = "###VCENTER_DATACENTER###"
 $Cluster = "###VCENTER_CLUSTER###"
 $Portgroup = "###PORTGTOUP###"

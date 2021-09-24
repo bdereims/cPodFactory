@@ -23,6 +23,7 @@ NAME_LOWER=$( echo ${HEADER}-${CPOD_NAME} | tr '[:upper:]' '[:lower:]' )
 VLAN=$( grep -m 1 "${NAME_LOWER}\s" /etc/hosts | awk '{print $1}' | cut -d "." -f 4 )
 VLAN_MGMT="${VLAN}"
 SUBNET=$( ./${COMPUTE_DIR}/cpod_ip.sh ${1} )
+VLAN_SHIFT=$( expr ${VLAN} + ${VLAN_SHIFT} )
 
 # with NSX, VLAN Management is untagged
 if [ ${BACKEND_NETWORK} != "VLAN" ]; then
@@ -52,6 +53,7 @@ sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###LIC_VCSA###/${LIC_VCSA}/g" \
 -e "s/###LIC_VSAN###/${LIC_VSAN}/g" \
 -e "s/###LIC_NSXT###/${LIC_NSXT}/g" \
+-e "s/###VLAN_SHIFT###/${VLAN_SHIFT}/g" \
 ${SCRIPT}
 
 # Generate DNSMASQ conf file
@@ -64,10 +66,18 @@ sed -i -e "s/###SUBNET###/${SUBNET}/g" \
 -e "s/###LIC_VCSA###/${LIC_VCSA}/g" \
 -e "s/###LIC_VSAN###/${LIC_VSAN}/g" \
 -e "s/###LIC_NSXT###/${LIC_NSXT}/g" \
+-e "s/###ROOT_DOMAIN###/${ROOT_DOMAIN}/g" \
+-e "s/###TRANSIT_GW###/${TRANSIT_GW}/g" \
+-e "s/###VLAN_SHIFT###/${VLAN_SHIFT}/g" \
 ${DNSMASQ}
 
 # Generate BGPD conf file
 sed -i -e "s/###VLAN###/${VLAN}/g" \
+-e "s/###ASN###/${ASN}/g" \
+-e "s/###HEADER_ASN###/${HEADER_ASN}/g" \
+-e "s/###TRANSIT_GW###/${TRANSIT_GW}/g" \
+-e "s/###TRANSIT_SUBNET###/${TRANSIT_SUBNET}/g" \
+-e "s/###VLAN_SHIFT###/${VLAN_SHIFT}/g" \
 ${BGPD}
 
 echo "Modifying dnsmasq on cpodrouter."
