@@ -3,6 +3,7 @@
 
 # this file is not synced in git
 . ./env.passwd
+#. ./vsphere70U2a.sh
 
 SLACK=NO
 LEASE=NO

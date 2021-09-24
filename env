@@ -19,17 +19,18 @@ case $WHERE in
 		ALL_CLUSTER=(dell)
 		;;
 	"172.16.100.20/22")
-		ALL_CLUSTER=(intel)
+		ALL_CLUSTER=(fkd)
 		;;
 	"164.132.217.50/28")
 		ALL_CLUSTER=(ovh)
 		;;
-	"10.1.1.253/24")
+	"172.17.111.169/16")
 		ALL_CLUSTER=(techdata)
 		;;
+	"10.197.107.181/24")
+		ALL_CLUSTER=(stc)
+		;;
 esac
-
-ALL_CLUSTER=(techdata)
 
 #for CLUSTER in ${ALL_CLUSTER[@]}; do
 #        RESULT=$( ./extra/check_datastore.sh ${CLUSTER} )
