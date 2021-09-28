@@ -105,6 +105,22 @@
         "uplink1",
         "uplink2"
       ]
+    },
+    {
+      "networkType": "X_REGION",
+      "subnet": "10.###VLAN###.201.0/24",
+      "gateway": "10.###VLAN###.201.1",
+      "mtu": "1600",
+      "association": "dc01",
+      "vlanId": "0" 
+    },
+    {
+      "networkType": "REGION_SPECIFIC",
+      "subnet": "10.###VLAN###.200.0/24",
+      "gateway": "10.###VLAN###.200.1",
+      "mtu": "1600",
+      "association": "dc01",
+      "vlanId": "0" 
     }
   ],
   "nsxtSpec":
@@ -201,7 +217,17 @@
           "password": "VMw@re1!"
         }
       ]
-    }
+    },
+    "logicalSegments": [
+      {
+        "name": "seg01",
+        "networkType": "REGION_SPECIFIC"
+      },
+        {
+        "name": "xreg-seg01",
+        "networkType": "X_REGION"
+      }
+    ]
   },
   "vsanSpec": {
       "vsanName": "vsan-1",
@@ -414,5 +440,5 @@
       "serverId": "host-4"
     }
   ],
-  "excludedComponents": ["NSX-V"]
+  "excludedComponents": ["NSX-V", "AVN"]
 }

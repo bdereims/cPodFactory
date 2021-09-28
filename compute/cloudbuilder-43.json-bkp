@@ -13,16 +13,14 @@
       "username": "root",
       "password": "###PASSWORD###"
     },
-    "restApiCredentials": {
-      "username": "admin",
-      "password": "###PASSWORD###"
-    },
+    "localUserPassword": "###PASSWORD###",
     "vcenterId": "vcenter-1"
   },
   "sddcId": "###CPOD###",
   "esxLicense": "###LIC_ESX###",
   "taskName": "workflowconfig/workflowspec-ems.json",
   "ceipEnabled": false,
+  "fipsEnabled": false,
   "ntpServers": ["###SUBNET###.1"],
   "dnsSpec": {
     "subdomain": "###CPOD###.###DOMAIN###",
@@ -71,40 +69,6 @@
         "uplink1",
         "uplink2"
       ]
-    },
-    {
-      "networkType": "UPLINK01",
-      "subnet": "10.###VLAN###.4.0/24",
-      "gateway": "10.###VLAN###.4.1",
-      "vlanId": "###VLAN###04",
-      "mtu": "1500",
-      "portGroupKey": "cl01-vds01-pg-uplink01",
-      "association": "dc01",
-      "standbyUplinks":[]
-    },
-    {
-      "networkType": "UPLINK02",
-      "subnet": "10.###VLAN###.5.0/24",
-      "gateway": "10.###VLAN###.5.1",
-      "vlanId": "###VLAN###05",
-      "mtu": "1500",
-      "portGroupKey": "cl01-vds01-pg-uplink02",
-      "association": "dc01",
-      "standbyUplinks":[]
-    },
-    {
-      "networkType": "NSXT_EDGE_TEP",
-      "subnet": "10.###VLAN###.6.0/24",
-      "gateway": "10.###VLAN###.6.1",
-      "vlanId": "###VLAN###06",
-      "mtu": "1600",
-      "portGroupKey": "",
-      "association": "dc01",
-      "standbyUplinks":[],
-      "activeUplinks":[
-        "uplink1",
-        "uplink2"
-      ]
     }
   ],
   "nsxtSpec":
@@ -140,68 +104,7 @@
     "vip": "###SUBNET###.5",
     "vipFqdn": "nsx01",
     "nsxtLicense": "###LIC_NSXT###",
-    "transportVlanId": "###VLAN###03",
-    "nsxtEdgeSpec": {
-      "edgeClusterName": "ec01",
-      "edgeRootPassword": "###PASSWORD###",
-      "edgeAdminPassword": "###PASSWORD###",
-      "edgeAuditPassword": "###PASSWORD###",
-      "edgeFormFactor": "LARGE",
-      "edgeServicesSpecs": {
-        "tier0GatewayName" : "ec01-t0-gw01",
-        "tier1GatewayName" : "ec01-t1-gw01"
-      },
-      "tier0ServicesHighAvailability": "ACTIVE_ACTIVE",
-      "asn": 65501,
-      "edgeNodeSpecs": [
-        {
-          "edgeNodeName": "en01",
-          "edgeNodeHostname": "en01.###CPOD###.###DOMAIN###",
-          "managementCidr": "###SUBNET###.9/24",
-          "edgeVtep1Cidr": "10.###VLAN###.6.2/24",
-          "edgeVtep2Cidr": "10.###VLAN###.6.3/24",
-          "interfaces": [
-            {
-              "name": "uplink-edge1-tor1",
-              "interfaceCidr": "10.###VLAN###.4.2/24"
-            },
-            {
-              "name": "uplink-edge1-tor2",
-              "interfaceCidr": "10.###VLAN###.5.2/24"
-            }
-          ]
-        },
-        {
-          "edgeNodeName": "en02",
-          "edgeNodeHostname": "en02.###CPOD###.###DOMAIN###",
-          "managementCidr": "###SUBNET###.10/24",
-          "edgeVtep1Cidr": "10.###VLAN###.6.4/24",
-          "edgeVtep2Cidr": "10.###VLAN###.6.5/24",
-          "interfaces": [
-            {
-              "name": "uplink-edge2-tor1",
-              "interfaceCidr": "10.###VLAN###.4.3/24"
-            },
-            {
-              "name": "uplink-edge2-tor2",
-              "interfaceCidr": "10.###VLAN###.5.3/24"
-            }
-          ]
-        }
-      ],
-      "bgpNeighbours": [
-        {
-          "neighbourIp": "10.###VLAN###.4.1",
-          "autonomousSystem": "655###VLAN###",
-          "password": "VMw@re1!"
-        },
-        {
-          "neighbourIp": "10.###VLAN###.5.1",
-          "autonomousSystem": "655###VLAN###",
-          "password": "VMw@re1!"
-        }
-      ]
-    }
+    "transportVlanId": "###VLAN###03"
   },
   "vsanSpec": {
       "vsanName": "vsan-1",
@@ -223,8 +126,6 @@
         "MANAGEMENT",
         "VMOTION",
         "VSAN",
-        "UPLINK01",
-        "UPLINK02"
       ],
       "niocSpecs":[
         {
@@ -276,60 +177,7 @@
       "MANAGEMENT": "###CPOD###-fd-mgmt",
       "NETWORKING": "###CPOD###-fd-nsx",
       "EDGENODES": "###CPOD###-vcf-fd-edge"
-    },
-    "resourcePoolSpecs": [{
-      "name": "rp-sddc-mgmt",
-      "type": "management",
-      "cpuReservationPercentage": 0,
-      "cpuLimit": -1,
-      "cpuReservationExpandable": true,
-      "cpuSharesLevel": "normal",
-      "cpuSharesValue": 0,
-      "memoryReservationMb": 0,
-      "memoryLimit": -1,
-      "memoryReservationExpandable": true,
-      "memorySharesLevel": "normal",
-      "memorySharesValue": 0
-    }, {
-      "name": "rp-sddc-edge",
-      "type": "network",
-      "cpuReservationPercentage": 0,
-      "cpuLimit": -1,
-      "cpuReservationExpandable": true,
-      "cpuSharesLevel": "normal",
-      "cpuSharesValue": 0,
-      "memoryReservationPercentage": 0,
-      "memoryLimit": -1,
-      "memoryReservationExpandable": true,
-      "memorySharesLevel": "normal",
-      "memorySharesValue": 0
-    }, {
-      "name": "rp-user-edge",
-      "type": "compute",
-      "cpuReservationPercentage": 0,
-      "cpuLimit": -1,
-      "cpuReservationExpandable": true,
-      "cpuSharesLevel": "normal",
-      "cpuSharesValue": 0,
-      "memoryReservationPercentage": 0,
-      "memoryLimit": -1,
-      "memoryReservationExpandable": true,
-      "memorySharesLevel": "normal",
-      "memorySharesValue": 0
-    }, {
-      "name": "cl01-rp-user-vm",
-      "type": "compute",
-      "cpuReservationPercentage": 0,
-      "cpuLimit": -1,
-      "cpuReservationExpandable": true,
-      "cpuSharesLevel": "normal",
-      "cpuSharesValue": 0,
-      "memoryReservationPercentage": 0,
-      "memoryLimit": -1,
-      "memoryReservationExpandable": true,
-      "memorySharesLevel": "normal",
-      "memorySharesValue": 0
-    }]
+    }
   },
   "pscSpecs": [
     {
@@ -338,8 +186,6 @@
       "adminUserSsoPassword": "###PASSWORD###",
       "pscSsoSpec": {
         "ssoDomain": "vsphere.local",
-        "isJoinSsoDomain": false,
-        "ssoSiteName": "###CPOD###"
       }
     }
   ],
@@ -357,8 +203,6 @@
       "association": "dc01",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.21",
-        "cidr": "###SUBNET###.0/24",
-        "gateway": "###SUBNET###.1"
       },
       "hostname": "esx01",
       "credentials": {
@@ -372,8 +216,6 @@
       "association": "dc01",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.22",
-        "cidr": "###SUBNET###.0/24",
-        "gateway": "###SUBNET###.1"
       },
       "hostname": "esx02",
       "credentials": {
@@ -387,8 +229,6 @@
       "association": "dc01",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.23",
-        "cidr": "###SUBNET###.0/24",
-        "gateway": "###SUBNET###.1"
       },
       "hostname": "esx03",
       "credentials": {
@@ -402,8 +242,6 @@
       "association": "dc01",
       "ipAddressPrivate": {
         "ipAddress": "###SUBNET###.24",
-        "cidr": "###SUBNET###.0/24",
-        "gateway": "###SUBNET###.1"
       },
       "hostname": "esx04",
       "credentials": {
@@ -414,5 +252,5 @@
       "serverId": "host-4"
     }
   ],
-  "excludedComponents": ["NSX-V"]
+  "excludedComponents": ["AVN", "EBGP"]
 }

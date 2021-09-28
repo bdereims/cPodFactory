@@ -14,7 +14,8 @@ add_to_cpodrouter_hosts() {
 	ssh -o LogLevel=error ${NAME_LOWER} "sed "/${1}/d" -i /etc/hosts ; printf \"${1}\\t${2}\\n\" >> /etc/hosts"
 }
 
-JSON_TEMPLATE=cloudbuilder-401.json
+#JSON_TEMPLATE=cloudbuilder-401.json
+JSON_TEMPLATE=cloudbuilder-43.json
 DNSMASQ_TEMPLATE=dnsmasq.conf-vcf
 BGPD_TEMPLATE=bgpd.conf-vcf
 

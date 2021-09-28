@@ -120,5 +120,5 @@ export OVA_RIFT=${BITS}/template-RIFT.ova
 
 export HOSTNAME_CLOUDBUILDER=cloudbuilder
 export NAME_CLOUDBUILDER=CLOUDBUILDER
-export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.3.1.0-18624509_OVF10.ova
+export OVA_CLOUDBUILDER=${BITS}/VMware-Cloud-Builder-4.2.0.0-17559673_OVF10.ova
 export IP_CLOUDBUILDER=${SUBNET}.3
