@@ -1,0 +1,10 @@
+export GOVC_USERNAME=administrator@vsphere.local
+export GOVC_PASSWORD=$( echo OGo2IVJ4JERGYlMz | base64 -d )
+#export GOVC_URL="https://${GOVC_USERNAME}:${GOVC_PASSWORD}@vcenter.regionc.iberia.local/sdk"
+export GOVC_URL=vcenter.regionc.iberia.local
+export GOVC_INSECURE=1
+export GOVC_DATACENTER=RegionC
+export GOVC_DATASTORE=vsanDatastoreC
+export GOVC_HOST=vcenter.regionc.iberia.local
+export GOVC_NETWORK="VM Network"
+export GOVC_RESOURCE_POOL='/RegionC/host/DELL Cluster/Resources'
