@@ -17,6 +17,7 @@ add_to_cpodrouter_hosts() {
 #JSON_TEMPLATE=cloudbuilder-401.json
 #JSON_TEMPLATE=cloudbuilder-43.json
 JSON_TEMPLATE=${JSON_TEMPLATE:-"cloudbuilder-43.json"}
+JSON_TEMPLATE=cloudbuilder-43.json
 DNSMASQ_TEMPLATE=dnsmasq.conf-vcf
 BGPD_TEMPLATE=bgpd.conf-vcf
 
