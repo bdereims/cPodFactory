@@ -24,6 +24,6 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 ${SCRIPT}
 
 echo "Stoping vApp '${HEADER}-${1}'."
-docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:ubuntu16.04 ${SCRIPT} 2>&1 > /dev/nul
+docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:12.4 ${SCRIPT} 2>&1 > /dev/nul
 
 rm -fr ${SCRIPT}

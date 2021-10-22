@@ -19,6 +19,6 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 ${SCRIPT}
 
 echo "List vApp."
-docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:ubuntu16.04 ${SCRIPT} 
+docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v ${SCRIPT_DIR}:${SCRIPT_DIR} vmware/powerclicore:12.4 ${SCRIPT} 
 
 rm -fr ${SCRIPT}

@@ -28,7 +28,8 @@ OVA=${OVA_GREASEMONKEY}
 ###################
 
 #ADMIN="administrator@vsphere.local"
-#PORTGROUP="DPortGroup"
+#TARGET="vcsa.${DOMAIN}/dc01/host/cl01"
+#PORTGROUP="frontend"
 
 PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
 

@@ -33,6 +33,10 @@ CPOD_NAME_LOWER=$( echo ${CPOD_NAME} | tr '[:upper:]' '[:lower:]' )
 
 PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
 
+ADMIN="administrator@vsphere.local"
+TARGET="vcsa.${DOMAIN}/dc01/host/cl01"
+PORTGROUP="Dummy"
+
 export MYSCRIPT=/tmp/$$
 
 if [ "${JUMPBOX_PLACEMENT}" == "ATSIDE" ]; then

@@ -37,6 +37,6 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 ${SCRIPT}
 
 echo "Creating vApp '${HEADER}-${1}' with ${4} ESXi."
-docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v /tmp/scripts:/tmp/scripts vmware/powerclicore:ubuntu16.04 ${SCRIPT} 2>&1 > /dev/null
+docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v /tmp/scripts:/tmp/scripts vmware/powerclicore:12.4 ${SCRIPT} 2>&1 > /dev/null
 
 rm -fr ${SCRIPT}
