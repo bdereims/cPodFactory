@@ -97,7 +97,7 @@ network_create() {
 respool_create() {
 	NAME_UPPER=$( echo ${1} | tr '[:lower:]' '[:upper:]' )
 	#${COMPUTE_DIR}/create_vapp.sh ${NAME_UPPER} ${2} ${3} ${4} ${5}
-	${COMPUTE_DIR}/create_resourcepool.sh ${NAME_UPPER} ${2} ${3} ${4} ${5} ${6}
+	${COMPUTE_DIR}/create_resourcepool.sh ${NAME_UPPER} ${2} ${3} ${4} ${5} ${6} 1
 }
 
 modify_dnsmasq() {

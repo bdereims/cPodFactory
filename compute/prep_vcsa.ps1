@@ -6,6 +6,7 @@ $Cluster = "###VCENTER_CLUSTER###"
 $Domain = "###DOMAIN###"
 $vCenterESX = "esx-01."+$Domain
 $numberESX = ###NUMESX### 
+$startnumESX = ###STARTNUMESX### 
 $esxPass = "###ESX_PASSWD###"
 
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -DefaultVIServerMode multiple
@@ -16,7 +17,7 @@ New-DataCenter -Location $location -Name $Datacenter
 New-Cluster -Name $Cluster -Location $Datacenter
 
 Write-Host "Add ESX VMs."
-For ($i=1; $i -le $numberESX; $i++) {
+For ($i=$startnumESX; $i -le $numberESX; $i++) {
 	$ESX_NUMBER=$i.ToString("0#")
         Write-Host "-> esx$ESX_NUMBER"
 	Add-VMHost -Server $Vc -Name esx$ESX_NUMBER.$DOMAIN -Location (Get-Cluster -Name $Cluster ) -User root -Password $esxPass -force:$true
@@ -47,7 +48,7 @@ $thisDataStore = Get-datastore nfsDatastore
 get-vmhost | foreach {
 	$_ | Get-AdvancedSetting -name "Syslog.global.logDir" | set-advancedsetting -Value "[nfsDatastore] scratch/log" -confirm:$false
 	$_ | Get-AdvancedSetting UserVars.SuppressShellWarning | Set-AdvancedSetting -Value 1 -confirm:$false
-	Remove-VmHostNtpServer -NtpServer 172.16.2.1 -VMHost $_ -confirm:$false
+	#Remove-VmHostNtpServer -NtpServer 172.16.1.1 -VMHost $_ -confirm:$false
 	Add-VmHostNtpServer -NtpServer cpodrouter.$Domain -VMHost $_
 	Get-VMHostService $_ | where { $_.Key -eq "ntpd" } | Restart-VMHostService -confirm:$false
 	$_ | Get-VMHostHba -Type iScsi | New-IScsiHbaTarget -Address cpodfiler.$DOMAIN -confirm:$false

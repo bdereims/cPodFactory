@@ -7,10 +7,11 @@
 # $4 : # of ESX
 # $5 : Root Domain
 # $6 : Owner 
+# $7 : Start Number ESX, for adding ESX on created cPod
 
 . ./env
 
-[ "$1" == "" -o "$2" == "" -o "$3" == "" ] && echo "usage: $0 <name_of_vapp> <name_of_port_group> <ip_on_transit> <num_esx> <root domain> <owner>" && exit 1 
+[ "$1" == "" -o "$2" == "" -o "$3" == "" ] && echo "usage: $0 <name_of_vapp> <name_of_port_group> <ip_on_transit> <num_esx> <root domain> <owner> <start number esx>" && exit 1 
 
 PS_SCRIPT=create_resourcepool.ps1
 
@@ -36,10 +37,10 @@ sed -i -e "s/###VCENTER###/${VCENTER}/" \
 -e "s/###ROOT_DOMAIN###/${5}/" \
 -e "s/###ASN###/${ASN}/" \
 -e "s/###OWNER###/${6}/" \
+-e "s/###STARTNUMESX###/${7}/" \
 ${SCRIPT}
 
 echo "Creating ResourcePool '${HEADER}-${1}' with ${4} Nested ESXi."
-#docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v /tmp/scripts:/tmp/scripts vmware/powerclicore:12.4 ${SCRIPT} 2>&1 > /dev/null
 docker run --rm --dns=${DNS} --entrypoint="/usr/bin/pwsh" -v /tmp/scripts:/tmp/scripts vmware/powerclicore:12.4 ${SCRIPT} 2>&1 > /dev/null
 
 rm -fr ${SCRIPT}

@@ -57,11 +57,11 @@ create_cpod() {
 		NAME=$( echo $NAME | tr '[:lower:]' '[:upper:]' )
 	fi
 
-	if [ $NBESX -ge 0 ] && [ $NBESX -le 9 ] || [ "${FORCE}" == "1" ]; then 
+	if [ $NBESX -ge 0 ] && [ $NBESX -le 20 ] || [ "${FORCE}" == "1" ]; then 
 		if [ "${2}" == "" ]; then OWNER="admin"; fi
 		./create_cpod.sh ${NAME} ${NBESX} ${OWNER}
 	else
-		echo "Please specify #ESX between 1 and 9."
+		echo "Please specify #ESX between 1 and 20."
 	fi
 }
 

@@ -18,6 +18,7 @@ $numberESX = ###NUMESX###
 $rootDomain = "###ROOT_DOMAIN###"
 $asn = "###ASN###"
 $owner = "###OWNER###"
+$startNumESX = ###STARTNUMESX###
 
 $OwnerTag = "cPodOwner"
 $CreateTag = "cPodCreateDate"
@@ -54,8 +55,10 @@ if ( $test -eq $null ) {
 $CreateTag = Get-Tag $createdate
 
 #####
+# Fresh cPod or adding esx to an existing one
+if ( $startNumESX -eq 1 ) {
 
-Write-Host "Create RessourcePool."
+Write-Host "Create/modifying RessourcePool."
 #$ResPool = New-ResourcePool -Name cPod-$cPodName -MemLimitGB 96 -Location ( Get-Cluster -Name $Cluster ) 
 $ResPool = New-ResourcePool -Name cPod-$cPodName -Location ( Get-ResourcePool -Name cPod-Workload ) 
 $ResPool | New-TagAssignment -Tag $OwnerTag
@@ -84,10 +87,16 @@ if ($numberESX -lt 2) {
 	Start-Sleep -s 20 
 }
 
+}
 #####
 
+# Retrieve ResPool in case of adding ESX to existing one
+if ( $startNumESX -gt 1 ) {
+	$ResPool = Get-ResourcePool -Name cPod-$cPodName -Location ( Get-ResourcePool -Name cPod-Workload )
+}
+
 Write-Host "Add ESX VMs."
-For ($i=1; $i -le $numberESX; $i++) {
+For ($i=$startNumESX; $i -le $numberESX; $i++) {
 	Write-Host "-> cPod-$cPodName-esx$i"
 	$ESXNUMBER="{0:d2}" -f $i
 	$ESXVM = New-VM -Name cPod-$cPodName-esx$ESXNUMBER -VM $templateESX -ResourcePool $ResPool -Datastore $Datastore

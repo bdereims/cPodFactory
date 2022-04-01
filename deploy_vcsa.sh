@@ -48,7 +48,6 @@ if [ ${STATUS} == 0 ]; then
 fi
 
 PASSWORD=$( ./${EXTRA_DIR}/passwd_for_cpod.sh ${1} )
-#echo ${PASSWORD}
 
 ./extra/post_slack.sh "Deploying a new VCSA for *${1}*. We're working for you, it takes ages. Stay tuned..."
 
@@ -104,7 +103,7 @@ else
 	--name=${NAME} --datastore=${DATASTORE} --powerOn --noSSLVerify \
 	--diskMode=thin --net:"Network 1"="VM Network" \
 	--prop:guestinfo.cis.appliance.net.addr.family="ipv4" \
-	--prop:guestinfo.cis.appliance.net.mode="statis" \
+	--prop:guestinfo.cis.appliance.net.mode="static" \
 	--prop:guestinfo.cis.appliance.net.addr="${IP}" \
 	--prop:guestinfo.cis.appliance.net.prefix="24" \
 	--prop:guestinfo.cis.appliance.net.gateway="${GATEWAY}" \ 
@@ -144,7 +143,6 @@ do
 done	
 
 echo "SUCCEEDED !"
-#sleep 60
 
 ./extra/post_slack.sh ":speech_balloon: Customizing <https://vcsa.${DOMAIN}|VCSA> for cPod *${1}*, almost finished!"
 CPOD="${1}"
