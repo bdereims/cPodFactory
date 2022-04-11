@@ -1,4 +1,5 @@
 #!/bin/sh ++group=host/vim/vmvisor/boot
+#bdereims@vmware.com
 
 # local configuration options
 
@@ -11,13 +12,13 @@
 
 # Note: This script will not be run when UEFI secure boot is enabled.
 
-######
-### Disable secure boot option in vCenter for ESX template, without that this script will not run.
-######
+HEADER="###"
+TEST=$(grep "${HEADER}configured" /etc/rc.local.d/local.sh)
 
-FILE=/etc/rc.local.d/configured
+if [ "${HEADER}${TEST}" == "${HEADER}" ]; then
+	echo "configuring..."
+	echo "${HEADER}configured" >> /etc/rc.local.d/local.sh
 
-if [ ! -f ${FILE} ]; then
         echo "vmk0 recreation."
         touch ${FILE}
         esxcli network ip interface remove --interface-name=vmk0
@@ -25,6 +26,9 @@ if [ ! -f ${FILE} ]; then
         esxcli network ip interface ipv4 set --interface-name=vmk0 --type=dhcp
         #esxcli network ip interface tag add -i vmk0 -t VSAN
         #esxcli network ip interface tag add -i vmk0 -t VMotion
+else
+	echo "Already configured! Nothing to do."
 fi
 
 exit 0
+
